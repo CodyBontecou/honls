@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface Division {
   id: string;
@@ -19,6 +20,25 @@ function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preselectedDivision = searchParams.get("division");
+  const t = useTranslations("register");
+  const divT = useTranslations("divisionContent");
+
+  // Helper to get translated division content
+  const getDivisionName = (slug: string, fallback: string) => {
+    try {
+      return divT(`${slug}.name`);
+    } catch {
+      return fallback;
+    }
+  };
+  
+  const getDivisionDescription = (slug: string, fallback: string | null) => {
+    try {
+      return divT(`${slug}.description`);
+    } catch {
+      return fallback;
+    }
+  };
 
   const [divisions, setDivisions] = useState<Division[]>([]);
   const [selectedDivision, setSelectedDivision] = useState<string>("");
@@ -66,10 +86,10 @@ function RegisterForm() {
     return (
       <main className="min-h-screen flex items-center justify-center px-4 pt-20">
         <div className="text-center max-w-sm">
-          <h1 className="font-display text-3xl mb-4">Sign In Required</h1>
-          <p className="text-muted mb-8">You need to sign in to register.</p>
+          <h1 className="font-display text-3xl mb-4">{t("signInRequired")}</h1>
+          <p className="text-muted mb-8">{t("signInMessage")}</p>
           <Link href="/login?callbackUrl=/register" className="btn-primary">
-            Sign In
+            {t("signIn")}
           </Link>
         </div>
       </main>
@@ -118,9 +138,9 @@ function RegisterForm() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="font-display text-3xl mb-4">You're Registered</h1>
+          <h1 className="font-display text-3xl mb-4">{t("success.title")}</h1>
           <p className="text-muted mb-10">
-            See you at Honl's Beach, June 14–15, 2026.
+            {t("success.message")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
@@ -130,10 +150,10 @@ function RegisterForm() {
               }}
               className="btn-secondary"
             >
-              Register Another
+              {t("success.another")}
             </button>
             <Link href="/dashboard" className="btn-primary">
-              View Registrations
+              {t("success.view")}
             </Link>
           </div>
         </div>
@@ -145,8 +165,8 @@ function RegisterForm() {
     <main className="min-h-screen px-4 pt-32 pb-20">
       <div className="max-w-xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Competition</p>
-          <h1 className="font-display text-3xl sm:text-4xl">Registration</h1>
+          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">{t("label")}</p>
+          <h1 className="font-display text-3xl sm:text-4xl">{t("title")}</h1>
         </div>
 
         <div className="border border-subtle p-8">
@@ -160,7 +180,7 @@ function RegisterForm() {
             {/* Division Selection */}
             <div>
               <label className="block text-xs uppercase tracking-[0.15em] text-muted mb-4">
-                Division *
+                {t("form.division")}
               </label>
               <div className="grid sm:grid-cols-2 gap-3">
                 {divisions.map((division) => (
@@ -180,9 +200,13 @@ function RegisterForm() {
                       onChange={(e) => setSelectedDivision(e.target.value)}
                       className="sr-only"
                     />
-                    <div className="font-display">{division.name}</div>
+                    <div className="font-display">
+                      {getDivisionName(division.slug, division.name)}
+                    </div>
                     {division.description && (
-                      <div className="text-xs text-muted mt-1">{division.description}</div>
+                      <div className="text-xs text-muted mt-1">
+                        {getDivisionDescription(division.slug, division.description)}
+                      </div>
                     )}
                   </label>
                 ))}
@@ -192,7 +216,7 @@ function RegisterForm() {
             {/* Competitor Name */}
             <div>
               <label htmlFor="competitorName" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
-                Competitor Name *
+                {t("form.competitorName")}
               </label>
               <input
                 type="text"
@@ -200,7 +224,7 @@ function RegisterForm() {
                 value={competitorName}
                 onChange={(e) => setCompetitorName(e.target.value)}
                 className="w-full px-4 py-3 bg-transparent border border-subtle focus:outline-none focus:border-accent transition-colors"
-                placeholder="Full name"
+                placeholder={t("form.competitorNamePlaceholder")}
                 required
               />
             </div>
@@ -208,7 +232,7 @@ function RegisterForm() {
             {/* Date of Birth */}
             <div>
               <label htmlFor="dateOfBirth" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
-                Date of Birth
+                {t("form.dateOfBirth")}
               </label>
               <input
                 type="date"
@@ -217,14 +241,14 @@ function RegisterForm() {
                 onChange={(e) => setDateOfBirth(e.target.value)}
                 className="w-full px-4 py-3 bg-transparent border border-subtle focus:outline-none focus:border-accent transition-colors"
               />
-              <p className="mt-1 text-xs text-faint">Required for age-restricted divisions</p>
+              <p className="mt-1 text-xs text-faint">{t("form.dateOfBirthNote")}</p>
             </div>
 
             {/* Emergency Contact */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="emergencyContact" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
-                  Emergency Contact
+                  {t("form.emergencyContact")}
                 </label>
                 <input
                   type="text"
@@ -236,7 +260,7 @@ function RegisterForm() {
               </div>
               <div>
                 <label htmlFor="emergencyPhone" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
-                  Emergency Phone
+                  {t("form.emergencyPhone")}
                 </label>
                 <input
                   type="tel"
@@ -250,8 +274,7 @@ function RegisterForm() {
 
             {/* Terms */}
             <div className="p-4 bg-card text-xs text-muted">
-              By registering, you acknowledge that bodyboarding involves inherent risks. 
-              Competitors under 18 must have a parent sign a waiver at check-in.
+              {t("form.terms")}
             </div>
 
             <button
@@ -259,15 +282,15 @@ function RegisterForm() {
               disabled={loading || !selectedDivision || !competitorName}
               className="w-full btn-primary disabled:opacity-50"
             >
-              {loading ? "Submitting..." : "Complete Registration"}
+              {loading ? t("form.submitting") : t("form.submit")}
             </button>
           </form>
         </div>
 
         <p className="text-center mt-6 text-faint text-sm">
-          Already registered?{" "}
+          {t("alreadyRegistered")}{" "}
           <Link href="/dashboard" className="text-accent hover:text-cream transition-colors">
-            View registrations
+            {t("viewRegistrations")}
           </Link>
         </p>
       </div>

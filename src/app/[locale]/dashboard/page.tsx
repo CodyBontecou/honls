@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 interface Registration {
   id: string;
@@ -27,6 +28,9 @@ export default function DashboardPage() {
   const [divisions, setDivisions] = useState<Division[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const t = useTranslations("dashboard");
+  const commonT = useTranslations("common");
+  const divT = useTranslations("divisionContent");
 
   useEffect(() => {
     async function fetchData() {
@@ -55,11 +59,16 @@ export default function DashboardPage() {
 
   const getDivisionName = (divisionId: string) => {
     const div = divisions.find((d) => d.id === divisionId);
-    return div?.name || "Unknown";
+    if (!div) return "Unknown";
+    try {
+      return divT(`${div.slug}.name`);
+    } catch {
+      return div.name;
+    }
   };
 
   const handleWithdraw = async (registrationId: string) => {
-    if (!confirm("Withdraw from this division?")) return;
+    if (!confirm(t("registrations.withdrawConfirm"))) return;
 
     setDeleting(registrationId);
     try {
@@ -90,10 +99,10 @@ export default function DashboardPage() {
     return (
       <main className="min-h-screen flex items-center justify-center px-4 pt-20">
         <div className="text-center">
-          <h1 className="font-display text-3xl mb-4">Sign In Required</h1>
-          <p className="text-muted mb-8">Sign in to view your dashboard.</p>
+          <h1 className="font-display text-3xl mb-4">{t("signInRequired")}</h1>
+          <p className="text-muted mb-8">{t("signInMessage")}</p>
           <Link href="/login?callbackUrl=/dashboard" className="btn-primary">
-            Sign In
+            {t("signIn")}
           </Link>
         </div>
       </main>
@@ -105,28 +114,28 @@ export default function DashboardPage() {
       <div className="max-w-3xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-2">Dashboard</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-2">{t("label")}</p>
             <h1 className="font-display text-3xl">
-              {session?.user?.name || "Competitor"}
+              {session?.user?.name || commonT("competitor")}
             </h1>
           </div>
           <Link href="/register" className="btn-primary text-sm">
-            + Register
+            {t("addRegistration")}
           </Link>
         </div>
 
         {registrations.length === 0 ? (
           <div className="border border-subtle p-12 text-center">
-            <h2 className="font-display text-xl mb-3">No Registrations</h2>
-            <p className="text-muted mb-8">You haven't registered for any divisions.</p>
+            <h2 className="font-display text-xl mb-3">{t("noRegistrations.title")}</h2>
+            <p className="text-muted mb-8">{t("noRegistrations.message")}</p>
             <Link href="/register" className="btn-primary">
-              Register Now
+              {t("noRegistrations.button")}
             </Link>
           </div>
         ) : (
           <div className="space-y-4">
             <p className="text-sm text-muted mb-6">
-              Your registrations ({registrations.length})
+              {t("registrations.title", { count: registrations.length })}
             </p>
 
             {registrations.map((reg) => (
@@ -138,13 +147,13 @@ export default function DashboardPage() {
                       <span className={`text-xs px-2 py-0.5 ${
                         reg.status === "confirmed" ? "text-accent border border-accent" : "text-muted border border-subtle"
                       }`}>
-                        {reg.status}
+                        {reg.status === "confirmed" ? commonT("confirmed") : commonT("pending")}
                       </span>
                     </div>
                     <div className="text-sm text-muted space-y-1">
-                      <p>Name: {reg.competitorName}</p>
-                      {reg.dateOfBirth && <p>DOB: {reg.dateOfBirth}</p>}
-                      <p>Registered: {new Date(reg.createdAt).toLocaleDateString()}</p>
+                      <p>{t("registrations.name")} {reg.competitorName}</p>
+                      {reg.dateOfBirth && <p>{t("registrations.dob")} {reg.dateOfBirth}</p>}
+                      <p>{t("registrations.registered")} {new Date(reg.createdAt).toLocaleDateString()}</p>
                     </div>
                   </div>
                   <button
@@ -152,7 +161,7 @@ export default function DashboardPage() {
                     disabled={deleting === reg.id}
                     className="text-sm text-muted hover:text-accent transition-colors"
                   >
-                    {deleting === reg.id ? "..." : "Withdraw"}
+                    {deleting === reg.id ? "..." : t("registrations.withdraw")}
                   </button>
                 </div>
               </div>
@@ -161,22 +170,22 @@ export default function DashboardPage() {
         )}
 
         <div className="mt-12 border border-subtle p-6">
-          <h3 className="font-display mb-4">Event Info</h3>
+          <h3 className="font-display mb-4">{t("eventInfo.title")}</h3>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-muted">Date:</span>
-              <p>June 14–15, 2026</p>
+              <span className="text-muted">{t("eventInfo.date")}</span>
+              <p>{t("eventInfo.dateValue")}</p>
             </div>
             <div>
-              <span className="text-muted">Location:</span>
-              <p>Honl's Beach, Kailua-Kona</p>
+              <span className="text-muted">{t("eventInfo.location")}</span>
+              <p>{t("eventInfo.locationValue")}</p>
             </div>
             <div>
-              <span className="text-muted">Check-in:</span>
-              <p>6:30 AM each day</p>
+              <span className="text-muted">{t("eventInfo.checkin")}</span>
+              <p>{t("eventInfo.checkinValue")}</p>
             </div>
             <div>
-              <span className="text-muted">Contact:</span>
+              <span className="text-muted">{t("eventInfo.contact")}</span>
               <p className="text-accent">info@honlsclassic.com</p>
             </div>
           </div>

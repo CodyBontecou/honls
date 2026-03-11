@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "title": "Hoʻokūkū Papaheʻe Nalu o Ke Kahakai o Honl | Kailua-Kona, Hawaiʻi",
+    "description": "E komo mai i ka hoʻokūkū papaheʻe nalu kiʻekiʻe ma Ke Kahakai o Honl, Kailua-Kona, Hawaiʻi. Komo manuahi no nā māhele āpau. E hoʻohanohano ana i ka manaʻo o ka lawaiʻa Hawaiʻi."
+  },
+  "nav": {
+    "home": "Honl's Classic",
+    "about": "No Mākou",
+    "divisions": "Nā Māhele",
+    "schedule": "Papahana",
+    "standings": "Kūlana",
+    "dashboard": "Papa Kuhikuhi",
+    "login": "E Komo Mai",
+    "signOut": "Puka Aku",
+    "menu": "Papa Kuhikuhi"
+  },
+  "hero": {
+    "established": "Hoʻokumu 2026",
+    "title": "Ke Kahakai o Honl",
+    "subtitle": "Hoʻokūkū Papaheʻe Nalu",
+    "location": "Kailua-Kona, Hawaiʻi",
+    "date": "Iune 14–15, 2026",
+    "register": "E Kākau Inoa",
+    "viewDivisions": "E Nānā i Nā Māhele",
+    "divisions": "Nā Māhele",
+    "entry": "Komo",
+    "free": "Manuahi",
+    "days": "Nā Lā"
+  },
+  "about": {
+    "label": "No Mākou",
+    "title": "Ka Manaʻo o Nā Wai Hawaiʻi",
+    "p1": "Ma kahi e hui ai ka pōhaku pele ʻeleʻele me ke kai uliuli, ua lōʻihi ka noho ʻana o Ke Kahakai o Honl ma ke ʻano he wahi hoʻolauleʻa no ka poʻe heʻe nalu i maopopo iā lākou nā leo kahiko o ke kai. Ma ʻaneʻi, hoʻokumu ka nalu paʻa i nā kūlana maikaʻi no ka hana o ka heʻe papaheʻe nalu—he kuʻuna i hānau ʻia ma kēia mau wai ponoʻī.",
+    "p2": "Hoʻohanohano kēia hoʻokūkū i ka manaʻo o ka lawaiʻa Hawaiʻi, e aloha ana i ka poʻe heʻe nalu o nā makahiki a me nā hiki like ʻole e hoʻāʻo i ko lākou mau akamai i nā nalu o ke kahakai o Kona."
+  },
+  "divisions": {
+    "label": "Hoʻokūkū",
+    "title": "Nā Māhele",
+    "ages": "Nā Makahiki: {range}",
+    "registered": "kākau inoa",
+    "enter": "E Komo →"
+  },
+  "divisionContent": {
+    "u12": {
+      "name": "Ma Lalo o 12",
+      "description": "Nā keiki ʻōpio 11 makahiki a ma lalo e hōʻike ana i ke kāmua o ka papaheʻe nalu"
+    },
+    "u18": {
+      "name": "Ma Lalo o 18",
+      "description": "Māhele ʻōpio no ka poʻe hoʻokūkū 12–17 makahiki"
+    },
+    "adult": {
+      "name": "Mākua Prone",
+      "description": "Māhele wehe no nā mākua 18+"
+    },
+    "dropknee": {
+      "name": "Kuli Haʻahaʻa",
+      "description": "Poʻe akamai DK me ka noho kuli hoʻokahi"
+    },
+    "standup": {
+      "name": "Kū Pololei",
+      "description": "Māhele papaheʻe nalu kū pololei"
+    }
+  },
+  "schedule": {
+    "label": "Hanana",
+    "title": "Papahana",
+    "day1": {
+      "title": "Poʻaono, Iune 14",
+      "items": {
+        "checkin": {
+          "time": "6:30 AM",
+          "title": "Wehe ka Palapala Inoa"
+        },
+        "start": {
+          "time": "7:00 AM",
+          "title": "Hoʻomaka ka Hoʻokūkū",
+          "sub": "Nā puni Ma Lalo o 12 & Ma Lalo o 18"
+        },
+        "break": {
+          "time": "12:00 PM",
+          "title": "Hoʻomaha"
+        },
+        "adult": {
+          "time": "1:00 PM",
+          "title": "Nā Puni Māhele Mākua"
+        }
+      }
+    },
+    "day2": {
+      "title": "Lāpule, Iune 15",
+      "items": {
+        "dropknee": {
+          "time": "7:00 AM",
+          "title": "Māhele Kuli Haʻahaʻa"
+        },
+        "standup": {
+          "time": "10:00 AM",
+          "title": "Māhele Kū Pololei"
+        },
+        "finals": {
+          "time": "2:00 PM",
+          "title": "Nā Hope"
+        },
+        "awards": {
+          "time": "5:00 PM",
+          "title": "Hōʻike Makana"
+        }
+      }
+    },
+    "note": "Hiki ke hoʻololi ka papahana ma muli o nā kūlana"
+  },
+  "cta": {
+    "title": "Makaukau e Heʻe Nalu?",
+    "description": "Manuahi ka kākau inoa a wehe no nā hiki āpau.",
+    "button": "E Kākau Inoa i Kēia Manawa"
+  },
+  "footer": {
+    "title": "Honl's Beach Classic",
+    "copyright": "© 2026"
+  },
+  "register": {
+    "label": "Hoʻokūkū",
+    "title": "Kākau Inoa",
+    "signInRequired": "Pono e Komo",
+    "signInMessage": "Pono ʻoe e komo e kākau inoa.",
+    "signIn": "E Komo Mai",
+    "success": {
+      "title": "Ua Kākau Inoa ʻOe",
+      "message": "E ʻike iā ʻoe ma Ke Kahakai o Honl, Iune 14–15, 2026.",
+      "another": "Kākau Inoa Hou",
+      "view": "E Nānā i Nā Kākau Inoa"
+    },
+    "form": {
+      "division": "Māhele *",
+      "competitorName": "Inoa Hoʻokūkū *",
+      "competitorNamePlaceholder": "Inoa piha",
+      "dateOfBirth": "Lā Hānau",
+      "dateOfBirthNote": "Pono no nā māhele kaupalena makahiki",
+      "emergencyContact": "Kelepona Pilikia",
+      "emergencyPhone": "Helu Kelepona Pilikia",
+      "terms": "Ma ke kākau inoa ʻana, ʻae ʻoe he mea pilikia ka heʻe papaheʻe nalu. Pono nā mea hoʻokūkū ma lalo o 18 makahiki e kakau kekahi makua i ka palapala ʻae ma ka palapala inoa.",
+      "submitting": "Ke hoʻouna nei...",
+      "submit": "E Hoʻopau i ke Kākau Inoa"
+    },
+    "alreadyRegistered": "Ua kākau inoa mua?",
+    "viewRegistrations": "E nānā i nā kākau inoa"
+  },
+  "login": {
+    "title": "Aloha Mai",
+    "subtitle": "E komo e hoʻoponopono i nā kākau inoa",
+    "google": "E Hoʻomau me Google",
+    "or": "a i ʻole",
+    "email": "Leka Uila",
+    "password": "ʻŌlelo Huna",
+    "signingIn": "Ke komo nei...",
+    "signIn": "E Komo Mai",
+    "noAccount": "ʻAʻohe moʻokāki?",
+    "signUp": "Kākau inoa",
+    "invalidCredentials": "ʻAʻole pololei ka leka uila a i ʻole ka ʻōlelo huna",
+    "error": "Ua hewa kekahi mea"
+  },
+  "signup": {
+    "title": "Hana Moʻokāki",
+    "subtitle": "E komo i ka hoʻokūkū",
+    "google": "E Hoʻomau me Google",
+    "or": "a i ʻole",
+    "fullName": "Inoa Piha",
+    "email": "Leka Uila",
+    "password": "ʻŌlelo Huna",
+    "passwordNote": "Liʻiliʻi loa 8 mau huapalapala",
+    "confirmPassword": "Hōʻoia i ka ʻŌlelo Huna",
+    "creating": "Ke hana nei...",
+    "create": "Hana Moʻokāki",
+    "haveAccount": "He moʻokāki kāu?",
+    "signIn": "E komo mai",
+    "errors": {
+      "passwordMismatch": "ʻAʻole like nā ʻōlelo huna",
+      "passwordLength": "Pono ka ʻōlelo huna he 8 mau huapalapala ma ka liʻiliʻi loa",
+      "accountCreated": "Ua hana ʻia ka moʻokāki. E ʻoluʻolu e komo mai.",
+      "error": "Ua hewa kekahi mea"
+    }
+  },
+  "dashboard": {
+    "label": "Papa Kuhikuhi",
+    "signInRequired": "Pono e Komo",
+    "signInMessage": "E komo e nānā i kāu papa kuhikuhi.",
+    "signIn": "E Komo Mai",
+    "addRegistration": "+ Kākau Inoa",
+    "noRegistrations": {
+      "title": "ʻAʻohe Kākau Inoa",
+      "message": "ʻAʻole i kākau inoa ʻoe no kekahi māhele.",
+      "button": "E Kākau Inoa i Kēia Manawa"
+    },
+    "registrations": {
+      "title": "Kāu mau kākau inoa ({count})",
+      "name": "Inoa:",
+      "dob": "Lā Hānau:",
+      "registered": "Kākau inoa:",
+      "withdraw": "Unuhi",
+      "withdrawConfirm": "E unuhi mai kēia māhele?"
+    },
+    "eventInfo": {
+      "title": "ʻIke Hanana",
+      "date": "Lā:",
+      "dateValue": "Iune 14–15, 2026",
+      "location": "Wahi:",
+      "locationValue": "Ke Kahakai o Honl, Kailua-Kona",
+      "checkin": "Palapala Inoa:",
+      "checkinValue": "6:30 AM i kēlā me kēia lā",
+      "contact": "Kelepona:"
+    }
+  },
+  "standings": {
+    "label": "Ola",
+    "title": "Kūlana",
+    "subtitle": "Nā palapala hoʻokūkū a me nā hopena ma ka māhele",
+    "competitors": "poʻe hoʻokūkū",
+    "winner": "Lanakila",
+    "leading": "Mua",
+    "status": {
+      "upcoming": "E Hiki Mai Ana",
+      "inProgress": "Ke Hana Nei",
+      "completed": "Pau",
+      "final": "Hope",
+      "live": "Ola"
+    },
+    "legend": {
+      "upcoming": "E Hiki Mai Ana",
+      "inProgress": "Ke Hana Nei",
+      "completed": "Pau"
+    }
+  },
+  "common": {
+    "competitor": "Mea Hoʻokūkū",
+    "confirmed": "hōʻoia",
+    "pending": "ke kali nei"
+  },
+  "languageSwitcher": {
+    "label": "ʻŌlelo"
+  }
+}

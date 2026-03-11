@@ -1,8 +1,9 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getDatabase } from "@/lib/cloudflare";
 import { divisions, registrations, rounds, heats, heatCompetitors } from "@/db";
 import { eq, asc, desc } from "drizzle-orm";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 interface HeatCompetitorData {
   id: string;
@@ -141,14 +142,34 @@ function formatScore(score: number | null): string {
 export default async function DivisionStandingsPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  
+  const t = await getTranslations();
   const standings = await getDivisionStandings(slug);
 
   if (!standings) {
     notFound();
   }
+
+  // Get translated division name/description
+  const getDivisionName = () => {
+    try {
+      return t(`divisionContent.${slug}.name`);
+    } catch {
+      return standings.name;
+    }
+  };
+  
+  const getDivisionDescription = () => {
+    try {
+      return t(`divisionContent.${slug}.description`);
+    } catch {
+      return standings.description;
+    }
+  };
 
   const hasStarted = standings.rounds.length > 0;
 
@@ -161,24 +182,24 @@ export default async function DivisionStandingsPage({
             href="/standings"
             className="text-sm text-muted hover:text-accent transition-colors"
           >
-            ← All Divisions
+            ← {t("standings.title")}
           </Link>
         </div>
 
         {/* Header */}
         <div className="mb-12">
           <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">
-            Division Standings
+            {t("standings.label")}
           </p>
           <h1 className="font-display text-4xl sm:text-5xl mb-3">
-            {standings.name}
+            {getDivisionName()}
           </h1>
           {standings.description && (
-            <p className="text-muted">{standings.description}</p>
+            <p className="text-muted">{getDivisionDescription()}</p>
           )}
           <div className="flex items-center gap-6 mt-4 text-sm">
             <span className="text-faint">
-              {standings.allCompetitors.length} competitors
+              {standings.allCompetitors.length} {t("standings.competitors")}
             </span>
             {standings.rounds.length > 0 && (
               <span className="text-faint">
@@ -205,7 +226,7 @@ export default async function DivisionStandingsPage({
                         : "bg-grey-100 text-muted"
                     }`}
                   >
-                    {round.status === "in_progress" ? "Live" : round.status}
+                    {round.status === "in_progress" ? t("standings.status.live") : round.status}
                   </span>
                 </div>
 
@@ -313,7 +334,7 @@ export default async function DivisionStandingsPage({
           <div>
             <div className="border border-subtle mb-8">
               <div className="px-4 py-3 bg-grey-100 border-b border-subtle">
-                <h2 className="font-display">Registered Competitors</h2>
+                <h2 className="font-display">Registered {t("standings.competitors")}</h2>
               </div>
               <div className="divide-y divide-subtle">
                 {standings.allCompetitors.length > 0 ? (
@@ -327,7 +348,7 @@ export default async function DivisionStandingsPage({
                   ))
                 ) : (
                   <div className="px-4 py-12 text-center text-faint">
-                    No competitors registered yet
+                    No {t("standings.competitors")} registered yet
                   </div>
                 )}
               </div>

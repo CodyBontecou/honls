@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getDatabase } from "@/lib/cloudflare";
 import { divisions, registrations, rounds, heats, heatCompetitors } from "@/db";
 import { count, eq, desc } from "drizzle-orm";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 interface DivisionWithStats {
   id: string;
@@ -53,7 +54,6 @@ async function getDivisionsWithStandings(): Promise<DivisionWithStats[]> {
             currentRoundName = divisionRounds.find(r => r.status === "in_progress")?.name || null;
           } else if (hasCompleted) {
             status = "in_progress";
-            // Find the next upcoming round
             const nextRound = divisionRounds.filter(r => r.status === "upcoming").sort((a, b) => a.roundNumber - b.roundNumber)[0];
             currentRoundName = nextRound?.name || null;
           }
@@ -100,17 +100,51 @@ async function getDivisionsWithStandings(): Promise<DivisionWithStats[]> {
   }
 }
 
-export default async function StandingsPage() {
+export default async function StandingsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  
+  const t = await getTranslations("standings");
+  const divT = await getTranslations("divisionContent");
   const divisionsData = await getDivisionsWithStandings();
+
+  // Helper to get translated division content
+  const getDivisionName = (slug: string, fallback: string) => {
+    try {
+      return divT(`${slug}.name`);
+    } catch {
+      return fallback;
+    }
+  };
+  
+  const getDivisionDescription = (slug: string, fallback: string | null) => {
+    try {
+      return divT(`${slug}.description`);
+    } catch {
+      return fallback;
+    }
+  };
+
+  const fallbackDivisions = [
+    { slug: "u12" },
+    { slug: "u18" },
+    { slug: "adult" },
+    { slug: "dropknee" },
+    { slug: "standup" },
+  ];
 
   return (
     <main className="min-h-screen px-4 pt-32 pb-20">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Live</p>
-          <h1 className="font-display text-4xl sm:text-5xl mb-4">Standings</h1>
-          <p className="text-muted">Tournament brackets and results by division</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">{t("label")}</p>
+          <h1 className="font-display text-4xl sm:text-5xl mb-4">{t("title")}</h1>
+          <p className="text-muted">{t("subtitle")}</p>
         </div>
 
         {/* Division Cards */}
@@ -130,8 +164,12 @@ export default async function StandingsPage() {
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <div>
-                        <h2 className="font-display text-xl mb-1">{division.name}</h2>
-                        <p className="text-sm text-muted">{division.description}</p>
+                        <h2 className="font-display text-xl mb-1">
+                          {getDivisionName(division.slug, division.name)}
+                        </h2>
+                        <p className="text-sm text-muted">
+                          {getDivisionDescription(division.slug, division.description)}
+                        </p>
                       </div>
                     </div>
 
@@ -150,10 +188,10 @@ export default async function StandingsPage() {
                         />
                         <span className="text-xs uppercase tracking-wider text-muted">
                           {division.status === "completed"
-                            ? "Final"
+                            ? t("status.final")
                             : division.status === "in_progress"
-                            ? division.currentRound || "Live"
-                            : "Upcoming"}
+                            ? division.currentRound || t("status.live")
+                            : t("status.upcoming")}
                         </span>
                       </div>
 
@@ -162,7 +200,7 @@ export default async function StandingsPage() {
                         <div className="text-lg font-display">
                           {division.competitorCount}
                         </div>
-                        <div className="text-xs text-faint">competitors</div>
+                        <div className="text-xs text-faint">{t("competitors")}</div>
                       </div>
 
                       {/* Leader/Winner */}
@@ -172,7 +210,7 @@ export default async function StandingsPage() {
                             {division.leader}
                           </div>
                           <div className="text-xs text-faint">
-                            {division.status === "completed" ? "Winner" : "Leading"}
+                            {division.status === "completed" ? t("winner") : t("leading")}
                           </div>
                         </div>
                       )}
@@ -186,13 +224,7 @@ export default async function StandingsPage() {
             ))
           ) : (
             /* Fallback divisions */
-            [
-              { name: "Under 12", slug: "u12", desc: "Young groms 11 and under" },
-              { name: "Under 18", slug: "u18", desc: "Junior division 12–17" },
-              { name: "Adult Prone", slug: "adult", desc: "Open division 18+" },
-              { name: "Drop Knee", slug: "dropknee", desc: "DK specialists" },
-              { name: "Stand Up", slug: "standup", desc: "Full stand-up division" },
-            ].map((division, index) => (
+            fallbackDivisions.map((division, index) => (
               <Link
                 key={division.slug}
                 href={`/standings/${division.slug}`}
@@ -205,15 +237,19 @@ export default async function StandingsPage() {
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <div>
-                        <h2 className="font-display text-xl mb-1">{division.name}</h2>
-                        <p className="text-sm text-muted">{division.desc}</p>
+                        <h2 className="font-display text-xl mb-1">
+                          {divT(`${division.slug}.name`)}
+                        </h2>
+                        <p className="text-sm text-muted">
+                          {divT(`${division.slug}.description`)}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-8 pl-8 sm:pl-0">
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-grey-300" />
                         <span className="text-xs uppercase tracking-wider text-muted">
-                          Upcoming
+                          {t("status.upcoming")}
                         </span>
                       </div>
                       <span className="text-faint">→</span>
@@ -229,15 +265,15 @@ export default async function StandingsPage() {
         <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-xs text-muted">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-grey-300" />
-            <span>Upcoming</span>
+            <span>{t("legend.upcoming")}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent" />
-            <span>In Progress</span>
+            <span>{t("legend.inProgress")}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-green-500" />
-            <span>Completed</span>
+            <span>{t("legend.completed")}</span>
           </div>
         </div>
       </div>

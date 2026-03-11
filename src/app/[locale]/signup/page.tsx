@@ -1,26 +1,53 @@
 "use client";
 
-import { useState, Suspense } from "react";
-import Link from "next/link";
+import { useState } from "react";
+import { Link } from "@/i18n/routing";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
-function LoginForm() {
+export default function SignupPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const t = useTranslations("signup");
+  const navT = useTranslations("nav");
   
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (password !== confirmPassword) {
+      setError(t("errors.passwordMismatch"));
+      return;
+    }
+
+    if (password.length < 8) {
+      setError(t("errors.passwordLength"));
+      return;
+    }
+
     setLoading(true);
 
     try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json() as { error?: string };
+
+      if (!res.ok) {
+        setError(data.error || t("errors.error"));
+        return;
+      }
+
       const result = await signIn("credentials", {
         email,
         password,
@@ -28,29 +55,30 @@ function LoginForm() {
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError(t("errors.accountCreated"));
+        router.push("/login");
       } else {
-        router.push(callbackUrl);
+        router.push("/register");
         router.refresh();
       }
     } catch {
-      setError("Something went wrong");
+      setError(t("errors.error"));
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl });
+    signIn("google", { callbackUrl: "/register" });
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 pt-20">
+    <main className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <Link href="/" className="font-display tracking-[0.1em]">Honl's Classic</Link>
-          <h1 className="font-display text-3xl mt-8 mb-2">Welcome Back</h1>
-          <p className="text-muted text-sm">Sign in to manage registrations</p>
+          <Link href="/" className="font-display tracking-[0.1em]">{navT("home")}</Link>
+          <h1 className="font-display text-3xl mt-8 mb-2">{t("title")}</h1>
+          <p className="text-muted text-sm">{t("subtitle")}</p>
         </div>
 
         <div className="border border-subtle p-8">
@@ -64,7 +92,7 @@ function LoginForm() {
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
             </svg>
-            Continue with Google
+            {t("google")}
           </button>
 
           <div className="relative my-8">
@@ -72,7 +100,7 @@ function LoginForm() {
               <div className="w-full border-t border-subtle" />
             </div>
             <div className="relative flex justify-center">
-              <span className="px-4 bg-white text-xs text-faint">or</span>
+              <span className="px-4 bg-white text-xs text-faint">{t("or")}</span>
             </div>
           </div>
 
@@ -84,8 +112,22 @@ function LoginForm() {
             )}
 
             <div>
+              <label htmlFor="name" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
+                {t("fullName")}
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 bg-transparent border border-subtle focus:outline-none focus:border-accent transition-colors"
+                required
+              />
+            </div>
+
+            <div>
               <label htmlFor="email" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
-                Email
+                {t("email")}
               </label>
               <input
                 type="email"
@@ -99,13 +141,29 @@ function LoginForm() {
 
             <div>
               <label htmlFor="password" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
-                Password
+                {t("password")}
               </label>
               <input
                 type="password"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 bg-transparent border border-subtle focus:outline-none focus:border-accent transition-colors"
+                required
+                minLength={8}
+              />
+              <p className="mt-1 text-xs text-faint">{t("passwordNote")}</p>
+            </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-xs uppercase tracking-[0.15em] text-muted mb-2">
+                {t("confirmPassword")}
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full px-4 py-3 bg-transparent border border-subtle focus:outline-none focus:border-accent transition-colors"
                 required
               />
@@ -116,28 +174,16 @@ function LoginForm() {
               disabled={loading}
               className="w-full btn-primary disabled:opacity-50"
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? t("creating") : t("create")}
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-muted">
-            No account?{" "}
-            <Link href="/signup" className="text-accent hover:text-cream transition-colors">Sign up</Link>
+            {t("haveAccount")}{" "}
+            <Link href="/login" className="text-accent hover:text-cream transition-colors">{t("signIn")}</Link>
           </p>
         </div>
       </div>
     </main>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border border-accent border-t-transparent rounded-full animate-spin" />
-      </div>
-    }>
-      <LoginForm />
-    </Suspense>
   );
 }

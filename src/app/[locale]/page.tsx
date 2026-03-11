@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getDatabase } from "@/lib/cloudflare";
 import { divisions, registrations } from "@/db";
 import { count, eq } from "drizzle-orm";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 async function getDivisionCounts() {
   try {
@@ -26,50 +27,83 @@ async function getDivisionCounts() {
   }
 }
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  
+  const t = await getTranslations();
   const divisionsWithCounts = await getDivisionCounts();
+
+  // Helper to get translated division content
+  const getDivisionName = (slug: string, fallback: string) => {
+    try {
+      return t(`divisionContent.${slug}.name`);
+    } catch {
+      return fallback;
+    }
+  };
+  
+  const getDivisionDescription = (slug: string, fallback: string | null) => {
+    try {
+      return t(`divisionContent.${slug}.description`);
+    } catch {
+      return fallback;
+    }
+  };
+
+  const fallbackDivisions = [
+    { slug: "u12" },
+    { slug: "u18" },
+    { slug: "adult" },
+    { slug: "dropknee" },
+    { slug: "standup" },
+  ];
 
   return (
     <main className="min-h-screen">
       {/* Hero */}
       <section className="min-h-screen flex items-center justify-center px-4">
         <div className="max-w-4xl mx-auto text-center pt-24">
-          <p className="text-sm uppercase tracking-[0.4em] text-muted mb-8">Est. 2026</p>
+          <p className="text-sm uppercase tracking-[0.4em] text-muted mb-8">{t("hero.established")}</p>
           
           <h1 className="font-display mb-6">
-            <span className="block text-5xl sm:text-7xl lg:text-8xl tracking-wide">Honl's Beach</span>
-            <span className="block text-2xl sm:text-3xl lg:text-4xl tracking-[0.2em] mt-4 text-accent">Bodyboarding Classic</span>
+            <span className="block text-5xl sm:text-7xl lg:text-8xl tracking-wide">{t("hero.title")}</span>
+            <span className="block text-2xl sm:text-3xl lg:text-4xl tracking-[0.2em] mt-4 text-accent">{t("hero.subtitle")}</span>
           </h1>
           
           <div className="w-16 h-px bg-accent mx-auto my-10" />
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-muted mb-12">
-            <span>Kailua-Kona, Hawai'i</span>
+            <span>{t("hero.location")}</span>
             <span className="hidden sm:block">·</span>
-            <span>June 14–15, 2026</span>
+            <span>{t("hero.date")}</span>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
             <Link href="/register" className="btn-primary">
-              Register
+              {t("hero.register")}
             </Link>
             <Link href="#divisions" className="btn-secondary">
-              View Divisions
+              {t("hero.viewDivisions")}
             </Link>
           </div>
 
           <div className="flex justify-center gap-16 text-center">
             <div>
               <div className="font-display text-4xl text-accent">5</div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted mt-1">Divisions</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted mt-1">{t("hero.divisions")}</div>
             </div>
             <div>
-              <div className="font-display text-4xl">Free</div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted mt-1">Entry</div>
+              <div className="font-display text-4xl">{t("hero.free")}</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted mt-1">{t("hero.entry")}</div>
             </div>
             <div>
               <div className="font-display text-4xl text-accent">2</div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted mt-1">Days</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted mt-1">{t("hero.days")}</div>
             </div>
           </div>
         </div>
@@ -78,24 +112,15 @@ export default async function Home() {
       {/* About */}
       <section id="about" className="py-32 border-t border-subtle">
         <div className="max-w-3xl mx-auto px-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">About</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">{t("about.label")}</p>
           
           <h2 className="font-display text-3xl sm:text-4xl mb-10">
-            The Spirit of Hawaiian Waters
+            {t("about.title")}
           </h2>
           
           <div className="space-y-6 text-muted leading-relaxed">
-            <p>
-              Where the black lava meets the turquoise sea, Honl's Beach has long been a 
-              gathering place for riders who understand the ocean's ancient rhythms. 
-              Here, the shore break creates perfect conditions for the art of bodyboarding—
-              a tradition born in these very waters.
-            </p>
-            <p>
-              This competition honors the spirit of Hawaiian watermanship, welcoming riders 
-              of all ages and abilities to test their skills against the waves 
-              of the Kona coast.
-            </p>
+            <p>{t("about.p1")}</p>
+            <p>{t("about.p2")}</p>
           </div>
         </div>
       </section>
@@ -104,8 +129,8 @@ export default async function Home() {
       <section id="divisions" className="py-32 border-t border-subtle">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">Competition</p>
-            <h2 className="font-display text-3xl sm:text-4xl">Divisions</h2>
+            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">{t("divisions.label")}</p>
+            <h2 className="font-display text-3xl sm:text-4xl">{t("divisions.title")}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200">
@@ -113,51 +138,55 @@ export default async function Home() {
               divisionsWithCounts.map((division, index) => (
                 <div key={division.id} className="bg-white p-8">
                   <span className="text-xs text-faint">{String(index + 1).padStart(2, "0")}</span>
-                  <h3 className="font-display text-xl mt-2 mb-3">{division.name}</h3>
-                  <p className="text-muted text-sm mb-6">{division.description}</p>
+                  <h3 className="font-display text-xl mt-2 mb-3">
+                    {getDivisionName(division.slug, division.name)}
+                  </h3>
+                  <p className="text-muted text-sm mb-6">
+                    {getDivisionDescription(division.slug, division.description)}
+                  </p>
                   
                   {(division.minAge || division.maxAge) && (
                     <p className="text-xs text-faint mb-4">
-                      Ages: {division.minAge && division.maxAge
-                        ? `${division.minAge}–${division.maxAge}`
-                        : division.minAge
-                        ? `${division.minAge}+`
-                        : `Under ${division.maxAge}`}
+                      {t("divisions.ages", {
+                        range: division.minAge && division.maxAge
+                          ? `${division.minAge}–${division.maxAge}`
+                          : division.minAge
+                          ? `${division.minAge}+`
+                          : `< ${division.maxAge}`
+                      })}
                     </p>
                   )}
                   
                   <div className="flex items-center justify-between pt-4 border-t border-subtle">
                     <span className="text-sm">
                       <span className="text-accent">{division.registeredCount}</span>
-                      <span className="text-faint ml-1">registered</span>
+                      <span className="text-faint ml-1">{t("divisions.registered")}</span>
                     </span>
                     <Link
                       href={`/register?division=${division.slug}`}
                       className="text-xs uppercase tracking-[0.15em] text-muted hover:text-cream transition-colors"
                     >
-                      Enter →
+                      {t("divisions.enter")}
                     </Link>
                   </div>
                 </div>
               ))
             ) : (
-              [
-                { name: "Under 12", slug: "u12", desc: "Young groms 11 years and under" },
-                { name: "Under 18", slug: "u18", desc: "Junior division for competitors 12–17" },
-                { name: "Adult Prone", slug: "adult", desc: "Open division for all adults 18+" },
-                { name: "Drop Knee", slug: "dropknee", desc: "DK specialists riding with one knee up" },
-                { name: "Stand Up", slug: "standup", desc: "Full stand-up bodyboarding division" },
-              ].map((division, index) => (
+              fallbackDivisions.map((division, index) => (
                 <div key={division.slug} className="bg-white p-8">
                   <span className="text-xs text-faint">{String(index + 1).padStart(2, "0")}</span>
-                  <h3 className="font-display text-xl mt-2 mb-3">{division.name}</h3>
-                  <p className="text-muted text-sm mb-6">{division.desc}</p>
+                  <h3 className="font-display text-xl mt-2 mb-3">
+                    {t(`divisionContent.${division.slug}.name`)}
+                  </h3>
+                  <p className="text-muted text-sm mb-6">
+                    {t(`divisionContent.${division.slug}.description`)}
+                  </p>
                   <div className="pt-4 border-t border-subtle">
                     <Link
                       href={`/register?division=${division.slug}`}
                       className="text-xs uppercase tracking-[0.15em] text-muted hover:text-cream transition-colors"
                     >
-                      Enter →
+                      {t("divisions.enter")}
                     </Link>
                   </div>
                 </div>
@@ -171,28 +200,29 @@ export default async function Home() {
       <section id="schedule" className="py-32 border-t border-subtle">
         <div className="max-w-3xl mx-auto px-4">
           <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">Event</p>
-            <h2 className="font-display text-3xl sm:text-4xl">Schedule</h2>
+            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">{t("schedule.label")}</p>
+            <h2 className="font-display text-3xl sm:text-4xl">{t("schedule.title")}</h2>
           </div>
 
           <div className="space-y-12">
             {/* Day 1 */}
             <div>
               <h3 className="font-display text-lg mb-6 pb-4 border-b border-subtle">
-                Saturday, June 14
+                {t("schedule.day1.title")}
               </h3>
               <div className="space-y-4">
-                {[
-                  { time: "6:30 AM", title: "Check-in Opens" },
-                  { time: "7:00 AM", title: "Competition Begins", sub: "Under 12 & Under 18 rounds" },
-                  { time: "12:00 PM", title: "Break" },
-                  { time: "1:00 PM", title: "Adult Division Rounds" },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-6">
-                    <span className="text-sm text-accent w-20 shrink-0">{item.time}</span>
+                {(["checkin", "start", "break", "adult"] as const).map((key) => (
+                  <div key={key} className="flex gap-6">
+                    <span className="text-sm text-accent w-20 shrink-0">
+                      {t(`schedule.day1.items.${key}.time`)}
+                    </span>
                     <div>
-                      <span>{item.title}</span>
-                      {item.sub && <span className="text-muted text-sm ml-2">— {item.sub}</span>}
+                      <span>{t(`schedule.day1.items.${key}.title`)}</span>
+                      {key === "start" && (
+                        <span className="text-muted text-sm ml-2">
+                          — {t("schedule.day1.items.start.sub")}
+                        </span>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -202,18 +232,15 @@ export default async function Home() {
             {/* Day 2 */}
             <div>
               <h3 className="font-display text-lg mb-6 pb-4 border-b border-subtle">
-                Sunday, June 15
+                {t("schedule.day2.title")}
               </h3>
               <div className="space-y-4">
-                {[
-                  { time: "7:00 AM", title: "Drop Knee Division" },
-                  { time: "10:00 AM", title: "Stand Up Division" },
-                  { time: "2:00 PM", title: "Finals" },
-                  { time: "5:00 PM", title: "Awards Ceremony" },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-6">
-                    <span className="text-sm text-accent w-20 shrink-0">{item.time}</span>
-                    <span>{item.title}</span>
+                {(["dropknee", "standup", "finals", "awards"] as const).map((key) => (
+                  <div key={key} className="flex gap-6">
+                    <span className="text-sm text-accent w-20 shrink-0">
+                      {t(`schedule.day2.items.${key}.time`)}
+                    </span>
+                    <span>{t(`schedule.day2.items.${key}.title`)}</span>
                   </div>
                 ))}
               </div>
@@ -221,7 +248,7 @@ export default async function Home() {
           </div>
 
           <p className="text-center text-faint text-xs mt-12">
-            Schedule subject to change based on conditions
+            {t("schedule.note")}
           </p>
         </div>
       </section>
@@ -230,13 +257,13 @@ export default async function Home() {
       <section className="py-32 border-t border-subtle">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="font-display text-4xl sm:text-5xl mb-6">
-            Ready to Ride?
+            {t("cta.title")}
           </h2>
           <p className="text-muted mb-10">
-            Registration is free and open to all skill levels.
+            {t("cta.description")}
           </p>
           <Link href="/register" className="btn-primary">
-            Register Now
+            {t("cta.button")}
           </Link>
         </div>
       </section>
@@ -244,8 +271,8 @@ export default async function Home() {
       {/* Footer */}
       <footer className="py-12 border-t border-subtle">
         <div className="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-display tracking-wide">Honl's Beach Classic</div>
-          <div className="text-sm text-faint">© 2026</div>
+          <div className="font-display tracking-wide">{t("footer.title")}</div>
+          <div className="text-sm text-faint">{t("footer.copyright")}</div>
         </div>
       </footer>
     </main>

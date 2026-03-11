@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "title": "Honl's Beach Bodyboarding Classic | Kailua-Kona, Hawai'i",
+    "description": "Join the premier bodyboarding competition at Honl's Beach, Kailua-Kona, Hawai'i. Free entry across all divisions. Celebrating the spirit of Hawaiian watermanship."
+  },
+  "nav": {
+    "home": "Honl's Classic",
+    "about": "About",
+    "divisions": "Divisions",
+    "schedule": "Schedule",
+    "standings": "Standings",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "signOut": "Sign Out",
+    "menu": "Menu"
+  },
+  "hero": {
+    "established": "Est. 2026",
+    "title": "Honl's Beach",
+    "subtitle": "Bodyboarding Classic",
+    "location": "Kailua-Kona, Hawai'i",
+    "date": "June 14–15, 2026",
+    "register": "Register",
+    "viewDivisions": "View Divisions",
+    "divisions": "Divisions",
+    "entry": "Entry",
+    "free": "Free",
+    "days": "Days"
+  },
+  "about": {
+    "label": "About",
+    "title": "The Spirit of Hawaiian Waters",
+    "p1": "Where the black lava meets the turquoise sea, Honl's Beach has long been a gathering place for riders who understand the ocean's ancient rhythms. Here, the shore break creates perfect conditions for the art of bodyboarding—a tradition born in these very waters.",
+    "p2": "This competition honors the spirit of Hawaiian watermanship, welcoming riders of all ages and abilities to test their skills against the waves of the Kona coast."
+  },
+  "divisions": {
+    "label": "Competition",
+    "title": "Divisions",
+    "ages": "Ages: {range}",
+    "registered": "registered",
+    "enter": "Enter →"
+  },
+  "divisionContent": {
+    "u12": {
+      "name": "Under 12",
+      "description": "Young groms 11 years and under showing the future of bodyboarding"
+    },
+    "u18": {
+      "name": "Under 18",
+      "description": "Junior division for competitors 12–17 years old"
+    },
+    "adult": {
+      "name": "Adult Prone",
+      "description": "Open division for all adults 18+"
+    },
+    "dropknee": {
+      "name": "Drop Knee",
+      "description": "DK specialists riding with one knee up"
+    },
+    "standup": {
+      "name": "Stand Up",
+      "description": "Full stand-up bodyboarding division"
+    }
+  },
+  "schedule": {
+    "label": "Event",
+    "title": "Schedule",
+    "day1": {
+      "title": "Saturday, June 14",
+      "items": {
+        "checkin": {
+          "time": "6:30 AM",
+          "title": "Check-in Opens"
+        },
+        "start": {
+          "time": "7:00 AM",
+          "title": "Competition Begins",
+          "sub": "Under 12 & Under 18 rounds"
+        },
+        "break": {
+          "time": "12:00 PM",
+          "title": "Break"
+        },
+        "adult": {
+          "time": "1:00 PM",
+          "title": "Adult Division Rounds"
+        }
+      }
+    },
+    "day2": {
+      "title": "Sunday, June 15",
+      "items": {
+        "dropknee": {
+          "time": "7:00 AM",
+          "title": "Drop Knee Division"
+        },
+        "standup": {
+          "time": "10:00 AM",
+          "title": "Stand Up Division"
+        },
+        "finals": {
+          "time": "2:00 PM",
+          "title": "Finals"
+        },
+        "awards": {
+          "time": "5:00 PM",
+          "title": "Awards Ceremony"
+        }
+      }
+    },
+    "note": "Schedule subject to change based on conditions"
+  },
+  "cta": {
+    "title": "Ready to Ride?",
+    "description": "Registration is free and open to all skill levels.",
+    "button": "Register Now"
+  },
+  "footer": {
+    "title": "Honl's Beach Classic",
+    "copyright": "© 2026"
+  },
+  "register": {
+    "label": "Competition",
+    "title": "Registration",
+    "signInRequired": "Sign In Required",
+    "signInMessage": "You need to sign in to register.",
+    "signIn": "Sign In",
+    "success": {
+      "title": "You're Registered",
+      "message": "See you at Honl's Beach, June 14–15, 2026.",
+      "another": "Register Another",
+      "view": "View Registrations"
+    },
+    "form": {
+      "division": "Division *",
+      "competitorName": "Competitor Name *",
+      "competitorNamePlaceholder": "Full name",
+      "dateOfBirth": "Date of Birth",
+      "dateOfBirthNote": "Required for age-restricted divisions",
+      "emergencyContact": "Emergency Contact",
+      "emergencyPhone": "Emergency Phone",
+      "terms": "By registering, you acknowledge that bodyboarding involves inherent risks. Competitors under 18 must have a parent sign a waiver at check-in.",
+      "submitting": "Submitting...",
+      "submit": "Complete Registration"
+    },
+    "alreadyRegistered": "Already registered?",
+    "viewRegistrations": "View registrations"
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to manage registrations",
+    "google": "Continue with Google",
+    "or": "or",
+    "email": "Email",
+    "password": "Password",
+    "signingIn": "Signing in...",
+    "signIn": "Sign In",
+    "noAccount": "No account?",
+    "signUp": "Sign up",
+    "invalidCredentials": "Invalid email or password",
+    "error": "Something went wrong"
+  },
+  "signup": {
+    "title": "Create Account",
+    "subtitle": "Join the competition",
+    "google": "Continue with Google",
+    "or": "or",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordNote": "Min 8 characters",
+    "confirmPassword": "Confirm Password",
+    "creating": "Creating...",
+    "create": "Create Account",
+    "haveAccount": "Have an account?",
+    "signIn": "Sign in",
+    "errors": {
+      "passwordMismatch": "Passwords do not match",
+      "passwordLength": "Password must be at least 8 characters",
+      "accountCreated": "Account created. Please log in.",
+      "error": "Something went wrong"
+    }
+  },
+  "dashboard": {
+    "label": "Dashboard",
+    "signInRequired": "Sign In Required",
+    "signInMessage": "Sign in to view your dashboard.",
+    "signIn": "Sign In",
+    "addRegistration": "+ Register",
+    "noRegistrations": {
+      "title": "No Registrations",
+      "message": "You haven't registered for any divisions.",
+      "button": "Register Now"
+    },
+    "registrations": {
+      "title": "Your registrations ({count})",
+      "name": "Name:",
+      "dob": "DOB:",
+      "registered": "Registered:",
+      "withdraw": "Withdraw",
+      "withdrawConfirm": "Withdraw from this division?"
+    },
+    "eventInfo": {
+      "title": "Event Info",
+      "date": "Date:",
+      "dateValue": "June 14–15, 2026",
+      "location": "Location:",
+      "locationValue": "Honl's Beach, Kailua-Kona",
+      "checkin": "Check-in:",
+      "checkinValue": "6:30 AM each day",
+      "contact": "Contact:"
+    }
+  },
+  "standings": {
+    "label": "Live",
+    "title": "Standings",
+    "subtitle": "Tournament brackets and results by division",
+    "competitors": "competitors",
+    "winner": "Winner",
+    "leading": "Leading",
+    "status": {
+      "upcoming": "Upcoming",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "final": "Final",
+      "live": "Live"
+    },
+    "legend": {
+      "upcoming": "Upcoming",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    }
+  },
+  "common": {
+    "competitor": "Competitor",
+    "confirmed": "confirmed",
+    "pending": "pending"
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  }
+}
