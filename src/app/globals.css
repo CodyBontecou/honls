@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Teenage Engineering inspired palette: white/blue/grey */
+  --color-dark: #ffffff;
+  --color-cream: #1a1a1a;
+  --color-accent: #0066ff;
+  
+  /* Extended greys for hierarchy */
+  --color-grey-100: #f7f7f7;
+  --color-grey-200: #e5e5e5;
+  --color-grey-300: #d4d4d4;
+  --color-grey-400: #a3a3a3;
+  --color-grey-500: #737373;
+  --color-grey-600: #525252;
+  
+  /* Typography - clean sans-serif */
+  --font-display: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: var(--font-body);
+    background: var(--color-dark);
+    color: var(--color-cream);
+    overflow-x: hidden;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  
+  ::selection {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm font-medium uppercase tracking-[0.1em] transition-all duration-200;
+    background: var(--color-accent);
+    color: #ffffff;
+    border: 1px solid var(--color-accent);
+  }
+  
+  .btn-primary:hover {
+    background: #0052cc;
+    border-color: #0052cc;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm font-medium uppercase tracking-[0.1em] transition-all duration-200;
+    background: transparent;
+    border: 1px solid var(--color-grey-300);
+    color: var(--color-cream);
+  }
+  
+  .btn-secondary:hover {
+    border-color: var(--color-cream);
+    background: var(--color-grey-100);
+  }
+  
+  .text-accent {
+    color: var(--color-accent);
+  }
+  
+  .border-subtle {
+    border-color: var(--color-grey-200);
+  }
+  
+  .text-muted {
+    color: var(--color-grey-500);
+  }
+  
+  .text-faint {
+    color: var(--color-grey-400);
+  }
+  
+  .bg-card {
+    background: var(--color-grey-100);
+  }
+  
+  .bg-dark {
+    background: var(--color-dark);
+  }
+  
+  .text-cream {
+    color: var(--color-cream);
+  }
+  
+  .bg-cream {
+    background: var(--color-cream);
+  }
+}
+
+/* Scrollbar - minimal TE style */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-grey-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-grey-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-grey-400);
+}
+
+/* Form inputs - clean TE style */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"] {
+  color: var(--color-cream);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="tel"]::placeholder {
+  color: var(--color-grey-400);
+}
+
+/* Date input styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+  opacity: 0.5;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
