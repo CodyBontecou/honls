@@ -136,7 +136,7 @@ export default async function Home({
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200">
             {divisionsWithCounts.length > 0 ? (
               divisionsWithCounts.map((division, index) => (
-                <div key={division.id} className="bg-white p-8">
+                <div key={division.id} className="bg-white p-8 flex flex-col">
                   <span className="text-xs text-faint">{String(index + 1).padStart(2, "0")}</span>
                   <h3 className="font-display text-xl mt-2 mb-3">
                     {getDivisionName(division.slug, division.name)}
@@ -157,7 +157,7 @@ export default async function Home({
                     </p>
                   )}
                   
-                  <div className="flex items-center justify-between pt-4 border-t border-subtle">
+                  <div className="flex items-center justify-between pt-4 border-t border-subtle mt-auto">
                     <span className="text-sm">
                       <span className="text-accent">{division.registeredCount}</span>
                       <span className="text-faint ml-1">{t("divisions.registered")}</span>
@@ -173,7 +173,7 @@ export default async function Home({
               ))
             ) : (
               fallbackDivisions.map((division, index) => (
-                <div key={division.slug} className="bg-white p-8">
+                <div key={division.slug} className="bg-white p-8 flex flex-col">
                   <span className="text-xs text-faint">{String(index + 1).padStart(2, "0")}</span>
                   <h3 className="font-display text-xl mt-2 mb-3">
                     {t(`divisionContent.${division.slug}.name`)}
@@ -181,7 +181,7 @@ export default async function Home({
                   <p className="text-muted text-sm mb-6">
                     {t(`divisionContent.${division.slug}.description`)}
                   </p>
-                  <div className="pt-4 border-t border-subtle">
+                  <div className="pt-4 border-t border-subtle mt-auto">
                     <Link
                       href={`/register?division=${division.slug}`}
                       className="text-xs uppercase tracking-[0.15em] text-muted hover:text-cream transition-colors"

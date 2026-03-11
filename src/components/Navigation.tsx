@@ -84,7 +84,7 @@ export function Navigation() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden py-6 border-t border-subtle space-y-4">
+          <div className="md:hidden absolute top-20 left-0 right-0 bg-white py-6 px-4 border-t border-subtle space-y-4 shadow-lg">
             <Link href="/#about" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("about")}</Link>
             <Link href="/#divisions" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("divisions")}</Link>
             <Link href="/#schedule" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("schedule")}</Link>
