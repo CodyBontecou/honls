@@ -3,7 +3,7 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { getDatabase, getCloudflareEnv } from "./cloudflare";
-import { users } from "@/db";
+import { users, accounts, verificationTokens } from "@/db";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
@@ -21,7 +21,11 @@ async function createAuthConfig() {
   const env = await getCloudflareEnv() as AuthEnv;
   
   return {
-    adapter: DrizzleAdapter(db),
+    adapter: DrizzleAdapter(db, {
+      usersTable: users,
+      accountsTable: accounts,
+      verificationTokensTable: verificationTokens,
+    }),
     session: { strategy: "jwt" as const },
     pages: {
       signIn: "/login",
