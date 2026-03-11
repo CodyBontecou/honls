@@ -2,14 +2,23 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { getDatabase } from "./cloudflare";
+import { getDatabase, getCloudflareEnv } from "./cloudflare";
 import { users } from "@/db";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
+// Extended CloudflareEnv with auth secrets
+interface AuthEnv {
+  DB: D1Database;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  AUTH_SECRET?: string;
+}
+
 // Create auth config factory for D1
 async function createAuthConfig() {
   const db = await getDatabase();
+  const env = await getCloudflareEnv() as AuthEnv;
   
   return {
     adapter: DrizzleAdapter(db),
@@ -20,8 +29,8 @@ async function createAuthConfig() {
     },
     providers: [
       Google({
-        clientId: process.env.GOOGLE_CLIENT_ID!,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        clientId: env.GOOGLE_CLIENT_ID!,
+        clientSecret: env.GOOGLE_CLIENT_SECRET!,
         allowDangerousEmailAccountLinking: true,
       }),
       Credentials({
@@ -69,7 +78,7 @@ async function createAuthConfig() {
           httpOnly: true,
           sameSite: "lax" as const,
           path: "/",
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
         },
       },
     },
