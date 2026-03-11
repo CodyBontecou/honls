@@ -6,7 +6,7 @@ main = ".open-next/worker.js"
 assets = { directory = ".open-next/assets", binding = "ASSETS" }
 
 [vars]
-NEXTAUTH_URL = "https://honls.codybontecou.workers.dev"
+NEXTAUTH_URL = "https://honls.costream.workers.dev"
 
 [[d1_databases]]
 binding = "DB"
