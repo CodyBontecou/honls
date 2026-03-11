@@ -38,6 +38,9 @@ export function Navigation() {
             <Link href="/#schedule" className="text-sm text-muted hover:text-cream transition-colors">
               Schedule
             </Link>
+            <Link href="/standings" className="text-sm text-muted hover:text-cream transition-colors">
+              Standings
+            </Link>
             
             {status === "loading" ? (
               <div className="w-16 h-8 bg-card animate-pulse" />
@@ -80,6 +83,7 @@ export function Navigation() {
             <Link href="/#about" className="block text-muted" onClick={() => setMobileOpen(false)}>About</Link>
             <Link href="/#divisions" className="block text-muted" onClick={() => setMobileOpen(false)}>Divisions</Link>
             <Link href="/#schedule" className="block text-muted" onClick={() => setMobileOpen(false)}>Schedule</Link>
+            <Link href="/standings" className="block text-muted" onClick={() => setMobileOpen(false)}>Standings</Link>
             {session ? (
               <>
                 <Link href="/dashboard" className="block text-accent" onClick={() => setMobileOpen(false)}>Dashboard</Link>

@@ -60,4 +60,36 @@ export const registrations = sqliteTable("registrations", {
   emergencyPhone: text("emergency_phone"),
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
   status: text("status").default("pending"), // pending, confirmed, withdrawn
+  seedNumber: integer("seed_number"), // seeding position for bracket
+});
+
+// Tournament rounds within a division
+export const rounds = sqliteTable("rounds", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  divisionId: text("division_id").notNull().references(() => divisions.id, { onDelete: "cascade" }),
+  name: text("name").notNull(), // "Round 1", "Quarterfinals", "Semifinals", "Finals"
+  roundNumber: integer("round_number").notNull(), // 1, 2, 3, 4... (lower = earlier)
+  status: text("status").default("upcoming"), // upcoming, in_progress, completed
+});
+
+// Heats within a round (3-4 competitors per heat)
+export const heats = sqliteTable("heats", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  roundId: text("round_id").notNull().references(() => rounds.id, { onDelete: "cascade" }),
+  heatNumber: integer("heat_number").notNull(),
+  status: text("status").default("upcoming"), // upcoming, in_progress, completed
+  scheduledTime: text("scheduled_time"),
+});
+
+// Competitors assigned to heats with their scores
+export const heatCompetitors = sqliteTable("heat_competitors", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  heatId: text("heat_id").notNull().references(() => heats.id, { onDelete: "cascade" }),
+  registrationId: text("registration_id").notNull().references(() => registrations.id, { onDelete: "cascade" }),
+  wave1Score: integer("wave_1_score"), // Score * 100 for precision (850 = 8.50)
+  wave2Score: integer("wave_2_score"),
+  wave3Score: integer("wave_3_score"),
+  totalScore: integer("total_score"), // Best 2 of 3 waves combined
+  placement: integer("placement"), // 1st, 2nd, 3rd, 4th in heat
+  advanced: integer("advanced", { mode: "boolean" }).default(false),
 });
