@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { db, divisions, registrations } from "@/db";
+import { getDatabase } from "@/lib/cloudflare";
+import { divisions, registrations } from "@/db";
 import { count, eq } from "drizzle-orm";
 
 async function getDivisionCounts() {
   try {
+    const db = await getDatabase();
     const allDivisions = await db.query.divisions.findMany({
       orderBy: (divisions, { asc }) => [asc(divisions.sortOrder)],
     });

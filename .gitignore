@@ -43,3 +43,4 @@ next-env.d.ts
 # Shoreman dev server
 dev.log
 .shoreman.pid
+.open-next

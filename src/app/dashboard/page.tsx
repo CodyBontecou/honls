@@ -36,8 +36,8 @@ export default function DashboardPage() {
           fetch("/api/divisions"),
         ]);
 
-        const regData = await regRes.json();
-        const divData = await divRes.json();
+        const regData = await regRes.json() as { registrations?: Registration[] };
+        const divData = await divRes.json() as { divisions?: Division[] };
 
         setRegistrations(regData.registrations || []);
         setDivisions(divData.divisions || []);

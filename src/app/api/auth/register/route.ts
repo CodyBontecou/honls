@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { db, users } from "@/db";
+import { getDatabase } from "@/lib/cloudflare";
+import { users } from "@/db";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, password } = await request.json() as { name: string; email: string; password: string };
 
     if (!email || !password) {
       return NextResponse.json(
@@ -13,6 +14,8 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    const db = await getDatabase();
 
     // Check if user already exists
     const existingUser = await db.query.users.findFirst({

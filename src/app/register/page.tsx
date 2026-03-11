@@ -34,7 +34,7 @@ function RegisterForm() {
     async function fetchDivisions() {
       try {
         const res = await fetch("/api/divisions");
-        const data = await res.json();
+        const data = await res.json() as { divisions?: Division[] };
         setDivisions(data.divisions || []);
         
         if (preselectedDivision && data.divisions) {
@@ -94,7 +94,7 @@ function RegisterForm() {
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json() as { error?: string };
 
       if (!res.ok) {
         setError(data.error || "Registration failed");

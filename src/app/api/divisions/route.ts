@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
-import { db, divisions } from "@/db";
+import { getDatabase } from "@/lib/cloudflare";
+import { divisions } from "@/db";
 import { asc } from "drizzle-orm";
 
 export async function GET() {
   try {
+    const db = await getDatabase();
     const allDivisions = await db.query.divisions.findMany({
       orderBy: asc(divisions.sortOrder),
     });

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { db, registrations, divisions } from "@/db";
+import { getDatabase } from "@/lib/cloudflare";
+import { registrations, divisions } from "@/db";
 import { eq, and } from "drizzle-orm";
 
 export async function POST(request: Request) {
@@ -14,7 +15,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const { divisionId, competitorName, dateOfBirth, emergencyContact, emergencyPhone } = await request.json();
+    const { divisionId, competitorName, dateOfBirth, emergencyContact, emergencyPhone } = await request.json() as {
+      divisionId: string;
+      competitorName: string;
+      dateOfBirth?: string;
+      emergencyContact?: string;
+      emergencyPhone?: string;
+    };
 
     if (!divisionId || !competitorName) {
       return NextResponse.json(
@@ -22,6 +29,8 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    const db = await getDatabase();
 
     // Check if division exists
     const division = await db.query.divisions.findFirst({
@@ -85,6 +94,7 @@ export async function GET() {
       );
     }
 
+    const db = await getDatabase();
     const userRegistrations = await db.query.registrations.findMany({
       where: eq(registrations.userId, session.user.id),
     });
@@ -110,8 +120,9 @@ export async function DELETE(request: Request) {
       );
     }
 
-    const { registrationId } = await request.json();
+    const { registrationId } = await request.json() as { registrationId: string };
 
+    const db = await getDatabase();
     const reg = await db.query.registrations.findFirst({
       where: and(
         eq(registrations.id, registrationId),

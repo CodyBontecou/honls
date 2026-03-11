@@ -1,0 +1,14 @@
+name = "honls"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+main = ".open-next/worker.js"
+assets = { directory = ".open-next/assets", binding = "ASSETS" }
+
+[vars]
+NEXTAUTH_URL = "https://honls.codybontecou.workers.dev"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "honls-db"
+database_id = "c4a5de86-cc6b-4ab7-bbc8-f7cc94a7787b"
