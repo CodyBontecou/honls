@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense } from "react";
 import { Link } from "@/i18n/routing";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { defaultLocale } from "@/i18n/config";
 
 interface Division {
   id: string;
@@ -20,6 +21,7 @@ function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preselectedDivision = searchParams.get("division");
+  const locale = useLocale();
   const t = useTranslations("register");
   const divT = useTranslations("divisionContent");
 
@@ -51,12 +53,24 @@ function RegisterForm() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (status === "unauthenticated") {
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      const localePrefix = locale === defaultLocale ? "" : `/${locale}`;
+      router.replace(`${localePrefix}/login?callbackUrl=${encodeURIComponent(currentPath)}`);
+    }
+  }, [locale, router, status]);
+
+  useEffect(() => {
+    if (status !== "authenticated") {
+      return;
+    }
+
     async function fetchDivisions() {
       try {
         const res = await fetch("/api/divisions");
         const data = await res.json() as { divisions?: Division[] };
         setDivisions(data.divisions || []);
-        
+
         if (preselectedDivision && data.divisions) {
           const div = data.divisions.find((d: Division) => d.slug === preselectedDivision);
           if (div) setSelectedDivision(div.id);
@@ -66,7 +80,7 @@ function RegisterForm() {
       }
     }
     fetchDivisions();
-  }, [preselectedDivision]);
+  }, [preselectedDivision, status]);
 
   useEffect(() => {
     if (session?.user?.name) {
@@ -74,25 +88,11 @@ function RegisterForm() {
     }
   }, [session]);
 
-  if (status === "loading") {
+  if (status !== "authenticated") {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border border-accent border-t-transparent rounded-full animate-spin" />
       </div>
-    );
-  }
-
-  if (status === "unauthenticated") {
-    return (
-      <main className="min-h-screen flex items-center justify-center px-4 pt-20">
-        <div className="text-center max-w-sm">
-          <h1 className="font-display text-3xl mb-4">{t("signInRequired")}</h1>
-          <p className="text-muted mb-8">{t("signInMessage")}</p>
-          <Link href="/login?callbackUrl=/register" className="btn-primary">
-            {t("signIn")}
-          </Link>
-        </div>
-      </main>
     );
   }
 

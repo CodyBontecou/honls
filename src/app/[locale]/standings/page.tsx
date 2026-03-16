@@ -18,65 +18,85 @@ interface DivisionWithStats {
 async function getDivisionsWithStandings(): Promise<DivisionWithStats[]> {
   try {
     const db = await getDatabase();
-    
+
     const allDivisions = await db.query.divisions.findMany({
       orderBy: (divisions, { asc }) => [asc(divisions.sortOrder)],
     });
 
     const divisionsWithStats = await Promise.all(
       allDivisions.map(async (div) => {
-        // Get competitor count
-        const [countResult] = await db
-          .select({ count: count() })
-          .from(registrations)
-          .where(eq(registrations.divisionId, div.id));
+        let competitorCount = 0;
+        let divisionRounds: Awaited<ReturnType<typeof db.query.rounds.findMany>> = [];
 
-        // Get all rounds for this division
-        const divisionRounds = await db.query.rounds.findMany({
-          where: eq(rounds.divisionId, div.id),
-          orderBy: desc(rounds.roundNumber),
-        });
+        try {
+          const [countResult] = await db
+            .select({ count: count() })
+            .from(registrations)
+            .where(eq(registrations.divisionId, div.id));
+          competitorCount = countResult?.count || 0;
+        } catch {
+          // Keep fallback value
+        }
+
+        try {
+          divisionRounds = await db.query.rounds.findMany({
+            where: eq(rounds.divisionId, div.id),
+            orderBy: desc(rounds.roundNumber),
+          });
+        } catch {
+          // If rounds tables are unavailable, keep standings in "upcoming" mode
+        }
 
         // Determine overall status based on all rounds
         let status: "upcoming" | "in_progress" | "completed" = "upcoming";
         let currentRoundName: string | null = null;
-        
+
         if (divisionRounds.length > 0) {
-          const hasInProgress = divisionRounds.some(r => r.status === "in_progress");
-          const hasCompleted = divisionRounds.some(r => r.status === "completed");
-          const finalsRound = divisionRounds.find(r => r.name === "Finals");
-          
+          const hasInProgress = divisionRounds.some((r) => r.status === "in_progress");
+          const hasCompleted = divisionRounds.some((r) => r.status === "completed");
+          const finalsRound = divisionRounds.find((r) => r.name === "Finals");
+
           if (finalsRound?.status === "completed") {
             status = "completed";
             currentRoundName = "Finals";
           } else if (hasInProgress) {
             status = "in_progress";
-            currentRoundName = divisionRounds.find(r => r.status === "in_progress")?.name || null;
+            currentRoundName =
+              divisionRounds.find((r) => r.status === "in_progress")?.name || null;
           } else if (hasCompleted) {
             status = "in_progress";
-            const nextRound = divisionRounds.filter(r => r.status === "upcoming").sort((a, b) => a.roundNumber - b.roundNumber)[0];
+            const nextRound = divisionRounds
+              .filter((r) => r.status === "upcoming")
+              .sort((a, b) => a.roundNumber - b.roundNumber)[0];
             currentRoundName = nextRound?.name || null;
           }
         }
-        
-        // Get leader (winner of finals or current top scorer)
+
+        // Get leader (winner of finals)
         let leader: string | null = null;
         if (status === "completed") {
-          const finalsRoundObj = divisionRounds.find(r => r.name === "Finals");
-          const finalsHeat = finalsRoundObj ? await db.query.heats.findFirst({
-            where: eq(heats.roundId, finalsRoundObj.id),
-          }) : null;
-          if (finalsHeat) {
-            const winner = await db.query.heatCompetitors.findFirst({
-              where: eq(heatCompetitors.heatId, finalsHeat.id),
-              orderBy: desc(heatCompetitors.totalScore),
-            });
-            if (winner) {
-              const reg = await db.query.registrations.findFirst({
-                where: eq(registrations.id, winner.registrationId),
+          try {
+            const finalsRoundObj = divisionRounds.find((r) => r.name === "Finals");
+            const finalsHeat = finalsRoundObj
+              ? await db.query.heats.findFirst({
+                  where: eq(heats.roundId, finalsRoundObj.id),
+                })
+              : null;
+
+            if (finalsHeat) {
+              const winner = await db.query.heatCompetitors.findFirst({
+                where: eq(heatCompetitors.heatId, finalsHeat.id),
+                orderBy: desc(heatCompetitors.totalScore),
               });
-              leader = reg?.competitorName || null;
+              if (winner) {
+                const reg = await db.query.registrations.findFirst({
+                  where: eq(registrations.id, winner.registrationId),
+                });
+                leader = reg?.competitorName || null;
+              }
             }
+          } catch {
+            // Ignore leader lookup errors
           }
         }
 
@@ -85,7 +105,7 @@ async function getDivisionsWithStandings(): Promise<DivisionWithStats[]> {
           name: div.name,
           slug: div.slug,
           description: div.description,
-          competitorCount: countResult?.count || 0,
+          competitorCount,
           currentRound: currentRoundName,
           status,
           leader,

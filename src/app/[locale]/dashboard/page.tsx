@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { defaultLocale } from "@/i18n/config";
 
 interface Registration {
   id: string;
@@ -23,17 +25,31 @@ interface Division {
 }
 
 export default function DashboardPage() {
+  const router = useRouter();
+  const locale = useLocale();
   const { data: session, status } = useSession();
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [divisions, setDivisions] = useState<Division[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
   const t = useTranslations("dashboard");
   const commonT = useTranslations("common");
   const divT = useTranslations("divisionContent");
 
   useEffect(() => {
+    if (status === "unauthenticated") {
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      const localePrefix = locale === defaultLocale ? "" : `/${locale}`;
+      router.replace(`${localePrefix}/login?callbackUrl=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+
+    if (status !== "authenticated") {
+      return;
+    }
+
     async function fetchData() {
+      setLoading(true);
       try {
         const [regRes, divRes] = await Promise.all([
           fetch("/api/register"),
@@ -52,10 +68,8 @@ export default function DashboardPage() {
       }
     }
 
-    if (status === "authenticated") {
-      fetchData();
-    }
-  }, [status]);
+    fetchData();
+  }, [locale, router, status]);
 
   const getDivisionName = (divisionId: string) => {
     const div = divisions.find((d) => d.id === divisionId);
@@ -87,24 +101,10 @@ export default function DashboardPage() {
     }
   };
 
-  if (status === "loading" || loading) {
+  if (status !== "authenticated" || loading) {
     return (
       <main className="min-h-screen flex items-center justify-center pt-20">
         <div className="w-8 h-8 border border-accent border-t-transparent rounded-full animate-spin" />
-      </main>
-    );
-  }
-
-  if (status === "unauthenticated") {
-    return (
-      <main className="min-h-screen flex items-center justify-center px-4 pt-20">
-        <div className="text-center">
-          <h1 className="font-display text-3xl mb-4">{t("signInRequired")}</h1>
-          <p className="text-muted mb-8">{t("signInMessage")}</p>
-          <Link href="/login?callbackUrl=/dashboard" className="btn-primary">
-            {t("signIn")}
-          </Link>
-        </div>
       </main>
     );
   }

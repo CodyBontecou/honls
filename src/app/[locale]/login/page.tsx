@@ -27,13 +27,14 @@ function LoginForm() {
       const result = await signIn("credentials", {
         email,
         password,
+        callbackUrl,
         redirect: false,
       });
 
       if (result?.error) {
         setError(t("invalidCredentials"));
       } else {
-        router.push(callbackUrl);
+        router.push(result?.url || callbackUrl);
         router.refresh();
       }
     } catch {

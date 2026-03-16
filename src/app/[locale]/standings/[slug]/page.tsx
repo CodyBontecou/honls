@@ -52,41 +52,68 @@ async function getDivisionStandings(slug: string): Promise<DivisionStandings | n
 
     if (!division) return null;
 
-    // Get all competitors in this division
-    const competitors = await db.query.registrations.findMany({
-      where: eq(registrations.divisionId, division.id),
-      orderBy: asc(registrations.seedNumber),
-    });
+    // Get competitors (safe fallback)
+    let competitors: Awaited<ReturnType<typeof db.query.registrations.findMany>> = [];
+    try {
+      competitors = await db.query.registrations.findMany({
+        where: eq(registrations.divisionId, division.id),
+        orderBy: asc(registrations.seedNumber),
+      });
+    } catch {
+      // Keep empty competitor list
+    }
 
-    // Get all rounds for this division
-    const divisionRounds = await db.query.rounds.findMany({
-      where: eq(rounds.divisionId, division.id),
-      orderBy: asc(rounds.roundNumber),
-    });
+    // Get rounds (safe fallback for environments without tournament tables)
+    let divisionRounds: Awaited<ReturnType<typeof db.query.rounds.findMany>> = [];
+    try {
+      divisionRounds = await db.query.rounds.findMany({
+        where: eq(rounds.divisionId, division.id),
+        orderBy: asc(rounds.roundNumber),
+      });
+    } catch {
+      // Keep empty rounds list
+    }
 
     // Build complete round data with heats and competitors
     const roundsData: RoundData[] = await Promise.all(
       divisionRounds.map(async (round) => {
-        const roundHeats = await db.query.heats.findMany({
-          where: eq(heats.roundId, round.id),
-          orderBy: asc(heats.heatNumber),
-        });
+        let roundHeats: Awaited<ReturnType<typeof db.query.heats.findMany>> = [];
+        try {
+          roundHeats = await db.query.heats.findMany({
+            where: eq(heats.roundId, round.id),
+            orderBy: asc(heats.heatNumber),
+          });
+        } catch {
+          // Keep empty heats list
+        }
 
         const heatsData: HeatData[] = await Promise.all(
           roundHeats.map(async (heat) => {
-            const heatComps = await db.query.heatCompetitors.findMany({
-              where: eq(heatCompetitors.heatId, heat.id),
-              orderBy: [desc(heatCompetitors.totalScore), asc(heatCompetitors.placement)],
-            });
+            let heatComps: Awaited<ReturnType<typeof db.query.heatCompetitors.findMany>> = [];
+            try {
+              heatComps = await db.query.heatCompetitors.findMany({
+                where: eq(heatCompetitors.heatId, heat.id),
+                orderBy: [desc(heatCompetitors.totalScore), asc(heatCompetitors.placement)],
+              });
+            } catch {
+              // Keep empty competitors list
+            }
 
             const competitorsData: HeatCompetitorData[] = await Promise.all(
               heatComps.map(async (hc) => {
-                const reg = await db.query.registrations.findFirst({
-                  where: eq(registrations.id, hc.registrationId),
-                });
+                let competitorName = "Unknown";
+                try {
+                  const reg = await db.query.registrations.findFirst({
+                    where: eq(registrations.id, hc.registrationId),
+                  });
+                  competitorName = reg?.competitorName || "Unknown";
+                } catch {
+                  // Keep fallback name
+                }
+
                 return {
                   id: hc.id,
-                  competitorName: reg?.competitorName || "Unknown",
+                  competitorName,
                   wave1Score: hc.wave1Score,
                   wave2Score: hc.wave2Score,
                   wave3Score: hc.wave3Score,
