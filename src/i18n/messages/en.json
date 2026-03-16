@@ -16,7 +16,8 @@
     "menu": "Menu",
     "programs": "Programs",
     "events": "Events",
-    "partners": "Partners"
+    "partners": "Partners",
+    "contest": "Contest"
   },
   "hero": {
     "established": "Community Nonprofit",
@@ -312,6 +313,49 @@
         "title": "Honl's Contest Season",
         "description": "Preparation and support for the annual surf contest as part of our larger community mission."
       }
+    }
+  },
+  "contest": {
+    "backHome": "Back to Huilauloa",
+    "label": "Honl's Surf Contest",
+    "title": "Honl's Surf Contest Hub",
+    "subtitle": "Everything for competitors, families, and supporters in one place.",
+    "description": "This is the dedicated contest portal inside the Huilauloa site. Use the quick links below to register, track standings, and manage entries.",
+    "quickLinks": {
+      "register": "Register",
+      "standings": "Standings",
+      "dashboard": "My Dashboard",
+      "login": "Sign In"
+    },
+    "overview": {
+      "label": "Overview",
+      "title": "About Honl's Contest",
+      "p1": "The Honl's Surf Contest is one of Huilauloa’s signature events, bringing together riders of all ages to celebrate competition, discipline, and community.",
+      "p2": "As the event grows, this hub will remain the central place for divisions, schedule updates, registration, and live standings."
+    },
+    "divisions": {
+      "label": "Competition",
+      "title": "Divisions",
+      "description": "Choose your division and register. Placement and heat details appear in standings as the event progresses.",
+      "registered": "registered",
+      "enter": "Enter →"
+    },
+    "schedule": {
+      "label": "Event Schedule",
+      "title": "Weekend Schedule",
+      "note": "Schedule subject to change based on ocean conditions"
+    },
+    "partners": {
+      "label": "Support",
+      "title": "Contest Partners & Sponsors",
+      "subtitle": "Want to support the Honl's contest directly? We’re actively building sponsor and community partner relationships.",
+      "button": "Become a Contest Partner",
+      "email": "aloha@huilauloa.org"
+    },
+    "cta": {
+      "title": "Ready to Compete?",
+      "description": "Registration is open. Secure your division spot and join us at Honl’s Beach.",
+      "button": "Go to Registration"
     }
   }
 }

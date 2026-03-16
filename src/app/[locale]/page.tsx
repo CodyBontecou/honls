@@ -105,7 +105,7 @@ export default async function Home({
                 </p>
                 <div className="pt-4 border-t border-subtle mt-auto">
                   {program === "honlsClassic" ? (
-                    <Link href="/register" className="text-xs uppercase tracking-[0.15em] text-muted hover:text-cream transition-colors">
+                    <Link href="/contest" className="text-xs uppercase tracking-[0.15em] text-muted hover:text-cream transition-colors">
                       {t("programs.exploreContest")}
                     </Link>
                   ) : (

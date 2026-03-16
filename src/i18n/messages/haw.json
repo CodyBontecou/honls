@@ -16,7 +16,8 @@
     "menu": "Papa Kuhikuhi",
     "programs": "Nā Papahana",
     "events": "Nā Hanana",
-    "partners": "Nā Hoa"
+    "partners": "Nā Hoa",
+    "contest": "Hoʻokūkū"
   },
   "hero": {
     "established": "Hui Kākoʻo Kaiāulu",
@@ -312,6 +313,49 @@
         "title": "Kau Hoʻokūkū o Honl's",
         "description": "Ka hoʻomākaukau a me ke kākoʻo no ka hoʻokūkū makahiki ma loko o ka pahuhopu nui o ka hui."
       }
+    }
+  },
+  "contest": {
+    "backHome": "Hoʻi i Huilauloa",
+    "label": "Hoʻokūkū Heʻe Nalu o Honl's",
+    "title": "Ke Kikowaena Hoʻokūkū o Honl's",
+    "subtitle": "Aia ma ʻaneʻi nā mea a pau no nā mea hoʻokūkū, nā ʻohana, a me nā mea kākoʻo.",
+    "description": "ʻO kēia ka ʻaoʻao kūikawā no ka hoʻokūkū ma loko o ka pūnaewele Huilauloa. E hoʻohana i nā loulou wikiwiki no ke kākau inoa, ka nānā kūlana, a me ka mālama palapala.",
+    "quickLinks": {
+      "register": "E Kākau Inoa",
+      "standings": "Kūlana",
+      "dashboard": "Koʻu Papa Kuhikuhi",
+      "login": "E Komo Mai"
+    },
+    "overview": {
+      "label": "Nānā Nui",
+      "title": "No ka Hoʻokūkū o Honl's",
+      "p1": "ʻO ka Hoʻokūkū Heʻe Nalu o Honl's kekahi hanana koʻikoʻi a Huilauloa e hōʻuluʻulu ana i nā mea heʻe nalu o nā makahiki like ʻole no ka hoʻokūkū a me ke kaiāulu.",
+      "p2": "I ka ulu ʻana o ka hanana, e noho mau kēia kikowaena i wahi nui no nā māhele, nā hoʻololi papahana, ke kākau inoa, a me nā kūlana ola."
+    },
+    "divisions": {
+      "label": "Hoʻokūkū",
+      "title": "Nā Māhele",
+      "description": "E koho i kou māhele a e kākau inoa. E ʻike ʻia nā ʻike heat a me ke kūlana i ka wā e holo ana ka hanana.",
+      "registered": "kākau inoa",
+      "enter": "E Komo →"
+    },
+    "schedule": {
+      "label": "Papahana Hanana",
+      "title": "Papahana Hopena Pule",
+      "note": "Hiki ke hoʻololi ka papahana ma muli o nā kūlana kai"
+    },
+    "partners": {
+      "label": "Kākoʻo",
+      "title": "Nā Hoa a me Nā Sponsor Hoʻokūkū",
+      "subtitle": "Makemake e kākoʻo pololei i ka hoʻokūkū o Honl's? Ke kūkulu nei mākou i nā pilina me nā sponsor a me nā hoa kaiāulu.",
+      "button": "Lilo i Hoa Hoʻokūkū",
+      "email": "aloha@huilauloa.org"
+    },
+    "cta": {
+      "title": "Mākaukau e Hoʻokūkū?",
+      "description": "Ua wehe ke kākau inoa. E hoʻopaʻa i kou wahi ma ka māhele a e hui pū ma Ke Kahakai o Honl.",
+      "button": "Hele i ke Kākau Inoa"
     }
   }
 }

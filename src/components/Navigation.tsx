@@ -44,6 +44,9 @@ export function Navigation() {
             <Link href="/#partners" className="text-sm text-muted hover:text-cream transition-colors">
               {t("partners")}
             </Link>
+            <Link href="/contest" className="text-sm text-accent hover:text-cream transition-colors">
+              {t("contest")}
+            </Link>
 
             {status === "loading" ? (
               <div className="w-16 h-8 bg-card animate-pulse" />
@@ -104,6 +107,9 @@ export function Navigation() {
             </Link>
             <Link href="/#partners" className="block text-muted" onClick={() => setMobileOpen(false)}>
               {t("partners")}
+            </Link>
+            <Link href="/contest" className="block text-accent" onClick={() => setMobileOpen(false)}>
+              {t("contest")}
             </Link>
             {session ? (
               <>
