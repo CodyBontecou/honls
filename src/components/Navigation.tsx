@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { useSession, signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -35,19 +35,16 @@ export function Navigation() {
             <Link href="/#about" className="text-sm text-muted hover:text-cream transition-colors">
               {t("about")}
             </Link>
-            <Link href="/#divisions" className="text-sm text-muted hover:text-cream transition-colors">
-              {t("divisions")}
+            <Link href="/#programs" className="text-sm text-muted hover:text-cream transition-colors">
+              {t("programs")}
             </Link>
-            <Link href="/#schedule" className="text-sm text-muted hover:text-cream transition-colors">
-              {t("schedule")}
+            <Link href="/#events" className="text-sm text-muted hover:text-cream transition-colors">
+              {t("events")}
             </Link>
-            <Link href="/#sponsors" className="text-sm text-muted hover:text-cream transition-colors">
-              {t("sponsors")}
+            <Link href="/#partners" className="text-sm text-muted hover:text-cream transition-colors">
+              {t("partners")}
             </Link>
-            <Link href="/standings" className="text-sm text-muted hover:text-cream transition-colors">
-              {t("standings")}
-            </Link>
-            
+
             {status === "loading" ? (
               <div className="w-16 h-8 bg-card animate-pulse" />
             ) : session ? (
@@ -78,9 +75,17 @@ export function Navigation() {
             aria-label={t("menu")}
           >
             <div className="w-5 h-4 flex flex-col justify-between">
-              <span className={`w-full h-px bg-neutral-800 transition-all ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+              <span
+                className={`w-full h-px bg-neutral-800 transition-all ${
+                  mobileOpen ? "rotate-45 translate-y-[7px]" : ""
+                }`}
+              />
               <span className={`w-full h-px bg-neutral-800 transition-all ${mobileOpen ? "opacity-0" : ""}`} />
-              <span className={`w-full h-px bg-neutral-800 transition-all ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+              <span
+                className={`w-full h-px bg-neutral-800 transition-all ${
+                  mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""
+                }`}
+              />
             </div>
           </button>
         </div>
@@ -88,18 +93,31 @@ export function Navigation() {
         {/* Mobile menu */}
         {mobileOpen && (
           <div className="md:hidden absolute top-20 left-0 right-0 bg-white py-6 px-4 border-t border-subtle space-y-4 shadow-lg">
-            <Link href="/#about" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("about")}</Link>
-            <Link href="/#divisions" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("divisions")}</Link>
-            <Link href="/#schedule" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("schedule")}</Link>
-            <Link href="/#sponsors" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("sponsors")}</Link>
-            <Link href="/standings" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("standings")}</Link>
+            <Link href="/#about" className="block text-muted" onClick={() => setMobileOpen(false)}>
+              {t("about")}
+            </Link>
+            <Link href="/#programs" className="block text-muted" onClick={() => setMobileOpen(false)}>
+              {t("programs")}
+            </Link>
+            <Link href="/#events" className="block text-muted" onClick={() => setMobileOpen(false)}>
+              {t("events")}
+            </Link>
+            <Link href="/#partners" className="block text-muted" onClick={() => setMobileOpen(false)}>
+              {t("partners")}
+            </Link>
             {session ? (
               <>
-                <Link href="/dashboard" className="block text-accent" onClick={() => setMobileOpen(false)}>{t("dashboard")}</Link>
-                <button onClick={() => signOut()} className="block text-muted">{t("signOut")}</button>
+                <Link href="/dashboard" className="block text-accent" onClick={() => setMobileOpen(false)}>
+                  {t("dashboard")}
+                </Link>
+                <button onClick={() => signOut()} className="block text-muted">
+                  {t("signOut")}
+                </button>
               </>
             ) : (
-              <Link href="/login" className="block text-accent" onClick={() => setMobileOpen(false)}>{t("login")}</Link>
+              <Link href="/login" className="block text-accent" onClick={() => setMobileOpen(false)}>
+                {t("login")}
+              </Link>
             )}
             <div className="pt-4 border-t border-subtle">
               <LanguageSwitcher />

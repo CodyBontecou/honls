@@ -1,38 +1,41 @@
 {
   "meta": {
-    "title": "Honl's Beach Bodyboarding Classic | Kailua-Kona, Hawai'i",
-    "description": "Join the premier bodyboarding competition at Honl's Beach, Kailua-Kona, Hawai'i. Free entry across all divisions. Celebrating the spirit of Hawaiian watermanship."
+    "title": "Huilauloa | Community Nonprofit in Kailua-Kona",
+    "description": "Huilauloa is a community nonprofit in Kailua-Kona supporting youth programs, cultural events, ocean stewardship, and the annual Honl's surf contest."
   },
   "nav": {
-    "home": "Honl's Classic",
+    "home": "Huilauloa",
     "about": "About",
     "divisions": "Divisions",
     "schedule": "Schedule",
     "sponsors": "Sponsors",
-    "standings": "Standings",
+    "standings": "Contest",
     "dashboard": "Dashboard",
     "login": "Login",
     "signOut": "Sign Out",
-    "menu": "Menu"
+    "menu": "Menu",
+    "programs": "Programs",
+    "events": "Events",
+    "partners": "Partners"
   },
   "hero": {
-    "established": "Est. 2026",
-    "title": "Honl's Beach",
-    "subtitle": "Bodyboarding Classic",
+    "established": "Community Nonprofit",
+    "title": "Huilauloa",
+    "subtitle": "Culture · Community · Ocean",
     "location": "Kailua-Kona, Hawai'i",
-    "date": "June 14–15, 2026",
-    "register": "Register",
-    "viewDivisions": "View Divisions",
-    "divisions": "Divisions",
-    "entry": "Entry",
+    "date": "Year-round programs",
+    "register": "Explore Programs",
+    "viewDivisions": "About Our Work",
+    "divisions": "Programs",
+    "entry": "Days Active",
     "free": "Free",
-    "days": "Days"
+    "days": "Island"
   },
   "about": {
     "label": "About",
-    "title": "The Spirit of Hawaiian Waters",
-    "p1": "Where the black lava meets the turquoise sea, Honl's Beach has long been a gathering place for riders who understand the ocean's ancient rhythms. Here, the shore break creates perfect conditions for the art of bodyboarding—a tradition born in these very waters.",
-    "p2": "This competition honors the spirit of Hawaiian watermanship, welcoming riders of all ages and abilities to test their skills against the waves of the Kona coast."
+    "title": "Building a Stronger Community, Together",
+    "p1": "Huilauloa is a nonprofit rooted in Kailua-Kona, created to support local families, youth, and culture through meaningful community programs.",
+    "p2": "This homepage is now structured as our main organization site, with the Honl's surf contest included as one of several initiatives. We will refine mission and program copy in the next phase."
   },
   "divisions": {
     "label": "Competition",
@@ -113,32 +116,30 @@
   },
   "sponsors": {
     "label": "Partners",
-    "title": "Our Sponsors",
-    "subtitle": "Mahalo to the local businesses and organizations that make this event possible",
+    "title": "Community Partners",
+    "subtitle": "We work with local organizations, businesses, and volunteers who believe in long-term impact for Kona.",
     "tiers": {
-      "presenting": "Presenting Sponsor",
-      "gold": "Gold Sponsors",
-      "community": "Community Partners"
+      "presenting": "Lead Partner"
     },
     "become": {
-      "title": "Become a Sponsor",
-      "description": "Support local youth athletics and connect with the Kona bodyboarding community. Sponsorship packages include event signage, social media recognition, and more.",
-      "button": "Get Involved",
-      "email": "sponsors@honlsclassic.com"
+      "title": "Partner With Huilauloa",
+      "description": "Help us sustain programs that serve youth, families, and ocean stewardship efforts across our community.",
+      "button": "Start a Conversation",
+      "email": "aloha@huilauloa.org"
     },
     "placeholder": {
-      "presenting": "Your Business Here",
-      "available": "Sponsorship Available"
+      "presenting": "Your Organization Here",
+      "available": "Partnership Opportunity"
     }
   },
   "cta": {
-    "title": "Ready to Ride?",
-    "description": "Registration is free and open to all skill levels.",
-    "button": "Register Now"
+    "title": "Want to Support the Mission?",
+    "description": "Connect with us to volunteer, partner, or help shape upcoming Huilauloa initiatives.",
+    "button": "Get Involved"
   },
   "footer": {
-    "title": "Honl's Beach Classic",
-    "copyright": "© 2026"
+    "title": "Huilauloa",
+    "copyright": "© 2026 Huilauloa"
   },
   "register": {
     "label": "Competition",
@@ -259,5 +260,58 @@
   },
   "languageSwitcher": {
     "label": "Language"
+  },
+  "programs": {
+    "label": "What We Do",
+    "title": "Programs & Initiatives",
+    "subtitle": "From youth development to ocean stewardship, Huilauloa supports community-led projects throughout the year.",
+    "learnMore": "Learn More →",
+    "exploreContest": "Explore Contest →",
+    "items": {
+      "community": {
+        "name": "Community Support",
+        "description": "Local events, family outreach, and collaborative projects designed to strengthen connections across Kona communities."
+      },
+      "youth": {
+        "name": "Youth Development",
+        "description": "Skill-building opportunities and mentorship pathways that help keiki grow with confidence, responsibility, and pride."
+      },
+      "stewardship": {
+        "name": "Ocean Stewardship",
+        "description": "Programs that encourage care for our coastlines and water resources through education, service, and stewardship efforts."
+      },
+      "honlsClassic": {
+        "name": "Honl's Surf Contest",
+        "description": "Our annual surf and bodyboarding contest remains an important community tradition and one part of Huilauloa’s broader work."
+      }
+    }
+  },
+  "events": {
+    "label": "Community Calendar",
+    "title": "Year-Round Activities",
+    "subtitle": "Our programming evolves seasonally as we collaborate with families, schools, and local partners.",
+    "note": "Event details and dates will be updated as planning is finalized.",
+    "items": {
+      "spring": {
+        "season": "Spring",
+        "title": "Community Planning Sessions",
+        "description": "Open conversations with residents and partners to shape upcoming projects and priorities."
+      },
+      "summer": {
+        "season": "Summer",
+        "title": "Youth & Ocean Programs",
+        "description": "Hands-on activities and gatherings focused on youth engagement and ocean awareness."
+      },
+      "fall": {
+        "season": "Fall",
+        "title": "Cultural & Community Events",
+        "description": "Public events that celebrate shared values, local traditions, and community participation."
+      },
+      "winter": {
+        "season": "Winter",
+        "title": "Honl's Contest Season",
+        "description": "Preparation and support for the annual surf contest as part of our larger community mission."
+      }
+    }
   }
 }

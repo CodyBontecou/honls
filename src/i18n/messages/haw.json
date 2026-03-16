@@ -1,38 +1,41 @@
 {
   "meta": {
-    "title": "Hoʻokūkū Papaheʻe Nalu o Ke Kahakai o Honl | Kailua-Kona, Hawaiʻi",
-    "description": "E komo mai i ka hoʻokūkū papaheʻe nalu kiʻekiʻe ma Ke Kahakai o Honl, Kailua-Kona, Hawaiʻi. Komo manuahi no nā māhele āpau. E hoʻohanohano ana i ka manaʻo o ka lawaiʻa Hawaiʻi."
+    "title": "Huilauloa | Hui Kākoʻo Kaiāulu ma Kailua-Kona",
+    "description": "He hui kākoʻo kaiāulu ʻo Huilauloa ma Kailua-Kona no nā papahana ʻōpio, nā hanana moʻomeheu, ka mālama kai, a me ka hoʻokūkū heʻe nalu o Honl's."
   },
   "nav": {
-    "home": "Honl's Classic",
+    "home": "Huilauloa",
     "about": "No Mākou",
     "divisions": "Nā Māhele",
     "schedule": "Papahana",
     "sponsors": "Nā Sponsor",
-    "standings": "Kūlana",
+    "standings": "Hoʻokūkū",
     "dashboard": "Papa Kuhikuhi",
     "login": "E Komo Mai",
     "signOut": "Puka Aku",
-    "menu": "Papa Kuhikuhi"
+    "menu": "Papa Kuhikuhi",
+    "programs": "Nā Papahana",
+    "events": "Nā Hanana",
+    "partners": "Nā Hoa"
   },
   "hero": {
-    "established": "Hoʻokumu 2026",
-    "title": "Ke Kahakai o Honl",
-    "subtitle": "Hoʻokūkū Papaheʻe Nalu",
+    "established": "Hui Kākoʻo Kaiāulu",
+    "title": "Huilauloa",
+    "subtitle": "Moʻomeheu · Kaiāulu · Kai",
     "location": "Kailua-Kona, Hawaiʻi",
-    "date": "Iune 14–15, 2026",
-    "register": "E Kākau Inoa",
-    "viewDivisions": "E Nānā i Nā Māhele",
-    "divisions": "Nā Māhele",
-    "entry": "Komo",
+    "date": "Nā papahana a puni ka makahiki",
+    "register": "E Nānā i Nā Papahana",
+    "viewDivisions": "No Kā Mākou Hana",
+    "divisions": "Nā Papahana",
+    "entry": "Lā Hana",
     "free": "Manuahi",
-    "days": "Nā Lā"
+    "days": "Mokupuni"
   },
   "about": {
     "label": "No Mākou",
-    "title": "Ka Manaʻo o Nā Wai Hawaiʻi",
-    "p1": "Ma kahi e hui ai ka pōhaku pele ʻeleʻele me ke kai uliuli, ua lōʻihi ka noho ʻana o Ke Kahakai o Honl ma ke ʻano he wahi hoʻolauleʻa no ka poʻe heʻe nalu i maopopo iā lākou nā leo kahiko o ke kai. Ma ʻaneʻi, hoʻokumu ka nalu paʻa i nā kūlana maikaʻi no ka hana o ka heʻe papaheʻe nalu—he kuʻuna i hānau ʻia ma kēia mau wai ponoʻī.",
-    "p2": "Hoʻohanohano kēia hoʻokūkū i ka manaʻo o ka lawaiʻa Hawaiʻi, e aloha ana i ka poʻe heʻe nalu o nā makahiki a me nā hiki like ʻole e hoʻāʻo i ko lākou mau akamai i nā nalu o ke kahakai o Kona."
+    "title": "Ke Kūkulu Pū Nei i Kaiāulu Paʻa",
+    "p1": "He hui kākoʻo kaiāulu ʻo Huilauloa i hoʻokumu ʻia ma Kailua-Kona e kākoʻo i nā ʻohana, nā ʻōpio, a me ka moʻomeheu ma o nā papahana kūpono.",
+    "p2": "I kēia manawa, ua hoʻololi ʻia kēia ʻaoʻao nui no ka hui holoʻokoʻa, a ʻo ka hoʻokūkū heʻe nalu o Honl's he ʻāpana hoʻokahi wale nō. E hoʻoponopono hou ʻia ka ʻōlelo pahuhopu ma hope."
   },
   "divisions": {
     "label": "Hoʻokūkū",
@@ -113,32 +116,30 @@
   },
   "sponsors": {
     "label": "Nā Hoa",
-    "title": "Kā Mākou Mau Sponsor",
-    "subtitle": "Mahalo i nā ʻoihana kūloko a me nā hui e hana i kēia hanana",
+    "title": "Nā Hoa Kākoʻo Kaiāulu",
+    "subtitle": "Hana pū mākou me nā hui kūloko, nā ʻoihana, a me nā mea manawaleʻa no ka hopena lōʻihi ma Kona.",
     "tiers": {
-      "presenting": "Sponsor Nui",
-      "gold": "Nā Sponsor Gula",
-      "community": "Nā Hoa Kaiāulu"
+      "presenting": "Hoa Alakaʻi"
     },
     "become": {
-      "title": "Lilo i Sponsor",
-      "description": "E kākoʻo i nā haʻuki ʻōpio kūloko a hoʻopili me ke kaiāulu papaheʻe nalu o Kona. Loaʻa i nā pūʻolo sponsor ke kaha hanana, ka ʻike pūnaewele pilikanaka, a me nā mea ʻē aʻe.",
-      "button": "E Komo",
-      "email": "sponsors@honlsclassic.com"
+      "title": "E Hui Pū me Huilauloa",
+      "description": "Kōkua i ka mālama mau ʻana i nā papahana no nā ʻōpio, nā ʻohana, a me ka mālama kai ma ko mākou kaiāulu.",
+      "button": "E Kūkākūkā Kākou",
+      "email": "aloha@huilauloa.org"
     },
     "placeholder": {
-      "presenting": "Kāu ʻOihana Ma ʻAneʻi",
-      "available": "Loaʻa ka Sponsor"
+      "presenting": "Kāu Hui Ma ʻAneʻi",
+      "available": "Wā Kākoʻo Loaʻa"
     }
   },
   "cta": {
-    "title": "Makaukau e Heʻe Nalu?",
-    "description": "Manuahi ka kākau inoa a wehe no nā hiki āpau.",
-    "button": "E Kākau Inoa i Kēia Manawa"
+    "title": "Makemake e Kākoʻo i ka Pahuhopu?",
+    "description": "E hoʻopili mai e manawaleʻa, e hui, a e kōkua i ka hoʻonohonoho ʻana i nā papahana hou a Huilauloa.",
+    "button": "E Komo Mai"
   },
   "footer": {
-    "title": "Honl's Beach Classic",
-    "copyright": "© 2026"
+    "title": "Huilauloa",
+    "copyright": "© 2026 Huilauloa"
   },
   "register": {
     "label": "Hoʻokūkū",
@@ -259,5 +260,58 @@
   },
   "languageSwitcher": {
     "label": "ʻŌlelo"
+  },
+  "programs": {
+    "label": "Kā Mākou Hana",
+    "title": "Nā Papahana a me Nā Hana Nui",
+    "subtitle": "Mai ke kākoʻo ʻōpio a i ka mālama kai, kākoʻo ʻo Huilauloa i nā papahana alakaʻi kaiāulu a puni ka makahiki.",
+    "learnMore": "E Heluhelu Hou →",
+    "exploreContest": "E Nānā i ka Hoʻokūkū →",
+    "items": {
+      "community": {
+        "name": "Kākoʻo Kaiāulu",
+        "description": "Nā hanana kūloko, kōkua ʻohana, a me nā papahana hui e hoʻoikaika i ka pilina ma Kona."
+      },
+      "youth": {
+        "name": "Hoʻomohala ʻŌpio",
+        "description": "Nā ala aʻo a alakaʻi e kōkua i nā keiki e ulu me ka hilinaʻi, kuleana, a me ka haʻaheo."
+      },
+      "stewardship": {
+        "name": "Mālama Kai",
+        "description": "Nā papahana no ka mālama kahakai a me nā wai ma o ka aʻo, lawelawe, a me ka mālama pū."
+      },
+      "honlsClassic": {
+        "name": "Hoʻokūkū Heʻe Nalu o Honl's",
+        "description": "He kuʻuna kaiāulu koʻikoʻi nō ka hoʻokūkū makahiki, a he ʻāpana ia o ka hana ākea a Huilauloa."
+      }
+    }
+  },
+  "events": {
+    "label": "Alemanaka Kaiāulu",
+    "title": "Nā Hana a puni ka Makahiki",
+    "subtitle": "Loli nā papahana i kēlā me kēia kau me ka hui pū me nā ʻohana, nā kula, a me nā hoa kaiāulu.",
+    "note": "E hoʻohou ʻia nā lā a me nā kikoʻī i ka pau ʻana o ka hoʻolālā.",
+    "items": {
+      "spring": {
+        "season": "Kupulau",
+        "title": "Nā Kūkākūkā Hoʻolālā Kaiāulu",
+        "description": "Nā kūkākūkā hāmama me nā kamaʻāina a me nā hoa no ka hoʻonohonoho i nā pahuhopu hou."
+      },
+      "summer": {
+        "season": "Kauwela",
+        "title": "Nā Papahana ʻŌpio a me ke Kai",
+        "description": "Nā hana lima a me nā hālāwai e kālele ana i ka komo ʻana o ka ʻōpio a me ka ʻike kai."
+      },
+      "fall": {
+        "season": "Hāʻulelau",
+        "title": "Nā Hanana Moʻomeheu a Kaiāulu",
+        "description": "Nā hanana lehulehu e hoʻolauleʻa ana i nā waiwai like a me nā kuʻuna kūloko."
+      },
+      "winter": {
+        "season": "Hoʻoilo",
+        "title": "Kau Hoʻokūkū o Honl's",
+        "description": "Ka hoʻomākaukau a me ke kākoʻo no ka hoʻokūkū makahiki ma loko o ka pahuhopu nui o ka hui."
+      }
+    }
   }
 }
