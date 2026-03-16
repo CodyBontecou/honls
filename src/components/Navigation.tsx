@@ -41,6 +41,9 @@ export function Navigation() {
             <Link href="/#schedule" className="text-sm text-muted hover:text-cream transition-colors">
               {t("schedule")}
             </Link>
+            <Link href="/#sponsors" className="text-sm text-muted hover:text-cream transition-colors">
+              {t("sponsors")}
+            </Link>
             <Link href="/standings" className="text-sm text-muted hover:text-cream transition-colors">
               {t("standings")}
             </Link>
@@ -88,6 +91,7 @@ export function Navigation() {
             <Link href="/#about" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("about")}</Link>
             <Link href="/#divisions" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("divisions")}</Link>
             <Link href="/#schedule" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("schedule")}</Link>
+            <Link href="/#sponsors" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("sponsors")}</Link>
             <Link href="/standings" className="block text-muted" onClick={() => setMobileOpen(false)}>{t("standings")}</Link>
             {session ? (
               <>

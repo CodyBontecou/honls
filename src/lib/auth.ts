@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs";
 
 // Extended CloudflareEnv with auth secrets
 interface AuthEnv {
-  DB: D1Database;
+  DB?: D1Database;
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
   AUTH_SECRET?: string;

@@ -8,6 +8,7 @@
     "about": "No Mākou",
     "divisions": "Nā Māhele",
     "schedule": "Papahana",
+    "sponsors": "Nā Sponsor",
     "standings": "Kūlana",
     "dashboard": "Papa Kuhikuhi",
     "login": "E Komo Mai",
@@ -109,6 +110,26 @@
       }
     },
     "note": "Hiki ke hoʻololi ka papahana ma muli o nā kūlana"
+  },
+  "sponsors": {
+    "label": "Nā Hoa",
+    "title": "Kā Mākou Mau Sponsor",
+    "subtitle": "Mahalo i nā ʻoihana kūloko a me nā hui e hana i kēia hanana",
+    "tiers": {
+      "presenting": "Sponsor Nui",
+      "gold": "Nā Sponsor Gula",
+      "community": "Nā Hoa Kaiāulu"
+    },
+    "become": {
+      "title": "Lilo i Sponsor",
+      "description": "E kākoʻo i nā haʻuki ʻōpio kūloko a hoʻopili me ke kaiāulu papaheʻe nalu o Kona. Loaʻa i nā pūʻolo sponsor ke kaha hanana, ka ʻike pūnaewele pilikanaka, a me nā mea ʻē aʻe.",
+      "button": "E Komo",
+      "email": "sponsors@honlsclassic.com"
+    },
+    "placeholder": {
+      "presenting": "Kāu ʻOihana Ma ʻAneʻi",
+      "available": "Loaʻa ka Sponsor"
+    }
   },
   "cta": {
     "title": "Makaukau e Heʻe Nalu?",

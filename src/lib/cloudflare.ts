@@ -1,4 +1,3 @@
-import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getDb, type CloudflareEnv, type DB } from "@/db";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
@@ -6,28 +5,46 @@ import * as schema from "@/db/schema";
 
 // Singleton for local dev database
 let localDb: ReturnType<typeof drizzle<typeof schema>> | null = null;
+let runtimeCloudflareEnv: Promise<CloudflareEnv | null> | null = null;
 
 function getLocalDatabase() {
   if (!localDb) {
-    const sqlite = new Database("honls.db");
+    const sqlite = new Database("huilauloa.db");
     localDb = drizzle(sqlite, { schema });
   }
   return localDb;
 }
 
-// Get the Cloudflare environment and database
+async function getRuntimeCloudflareEnv(): Promise<CloudflareEnv | null> {
+  if (!runtimeCloudflareEnv) {
+    runtimeCloudflareEnv = (async () => {
+      try {
+        const { env } = await import("cloudflare:workers");
+        return env as CloudflareEnv;
+      } catch {
+        return null;
+      }
+    })();
+  }
+
+  return runtimeCloudflareEnv;
+}
+
+// Get Cloudflare bindings when running in workerd, or process.env locally
 export async function getCloudflareEnv(): Promise<CloudflareEnv> {
-  const { env } = await getCloudflareContext();
-  return env as CloudflareEnv;
+  const env = await getRuntimeCloudflareEnv();
+  if (env) return env;
+  return process.env as unknown as CloudflareEnv;
 }
 
 export async function getDatabase(): Promise<DB> {
-  // In local development, use better-sqlite3
-  if (process.env.NODE_ENV === "development") {
-    return getLocalDatabase() as unknown as DB;
+  const env = await getRuntimeCloudflareEnv();
+
+  // In Cloudflare runtime, use D1 binding
+  if (env?.DB) {
+    return getDb(env.DB);
   }
-  
-  // In production, use Cloudflare D1
-  const env = await getCloudflareEnv();
-  return getDb(env.DB);
+
+  // Local fallback for vinext dev/start
+  return getLocalDatabase() as unknown as DB;
 }

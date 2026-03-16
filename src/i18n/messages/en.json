@@ -8,6 +8,7 @@
     "about": "About",
     "divisions": "Divisions",
     "schedule": "Schedule",
+    "sponsors": "Sponsors",
     "standings": "Standings",
     "dashboard": "Dashboard",
     "login": "Login",
@@ -109,6 +110,26 @@
       }
     },
     "note": "Schedule subject to change based on conditions"
+  },
+  "sponsors": {
+    "label": "Partners",
+    "title": "Our Sponsors",
+    "subtitle": "Mahalo to the local businesses and organizations that make this event possible",
+    "tiers": {
+      "presenting": "Presenting Sponsor",
+      "gold": "Gold Sponsors",
+      "community": "Community Partners"
+    },
+    "become": {
+      "title": "Become a Sponsor",
+      "description": "Support local youth athletics and connect with the Kona bodyboarding community. Sponsorship packages include event signage, social media recognition, and more.",
+      "button": "Get Involved",
+      "email": "sponsors@honlsclassic.com"
+    },
+    "placeholder": {
+      "presenting": "Your Business Here",
+      "available": "Sponsorship Available"
+    }
   },
   "cta": {
     "title": "Ready to Ride?",

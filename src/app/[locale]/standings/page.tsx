@@ -59,14 +59,13 @@ async function getDivisionsWithStandings(): Promise<DivisionWithStats[]> {
           }
         }
         
-        const latestRound = { name: currentRoundName };
-
         // Get leader (winner of finals or current top scorer)
         let leader: string | null = null;
-        if (status === "completed" && latestRound) {
-          const finalsHeat = await db.query.heats.findFirst({
-            where: eq(heats.roundId, latestRound.id),
-          });
+        if (status === "completed") {
+          const finalsRoundObj = divisionRounds.find(r => r.name === "Finals");
+          const finalsHeat = finalsRoundObj ? await db.query.heats.findFirst({
+            where: eq(heats.roundId, finalsRoundObj.id),
+          }) : null;
           if (finalsHeat) {
             const winner = await db.query.heatCompetitors.findFirst({
               where: eq(heatCompetitors.heatId, finalsHeat.id),
@@ -87,7 +86,7 @@ async function getDivisionsWithStandings(): Promise<DivisionWithStats[]> {
           slug: div.slug,
           description: div.description,
           competitorCount: countResult?.count || 0,
-          currentRound: latestRound?.name || null,
+          currentRound: currentRoundName,
           status,
           leader,
         };

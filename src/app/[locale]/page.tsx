@@ -253,6 +253,78 @@ export default async function Home({
         </div>
       </section>
 
+      {/* Sponsors */}
+      <section id="sponsors" className="py-32 border-t border-subtle">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">{t("sponsors.label")}</p>
+            <h2 className="font-display text-3xl sm:text-4xl mb-4">{t("sponsors.title")}</h2>
+            <p className="text-muted max-w-xl mx-auto">{t("sponsors.subtitle")}</p>
+          </div>
+
+          {/* Presenting Sponsor */}
+          <div className="mb-16">
+            <p className="text-xs uppercase tracking-[0.2em] text-faint text-center mb-8">{t("sponsors.tiers.presenting")}</p>
+            <div className="flex justify-center">
+              <a
+                href="mailto:sponsors@honlsclassic.com?subject=Presenting%20Sponsor%20Inquiry"
+                className="group border-2 border-dashed border-gray-300 hover:border-accent transition-colors duration-300 px-16 py-12 flex flex-col items-center justify-center"
+              >
+                <div className="text-4xl text-gray-300 group-hover:text-accent transition-colors mb-3">◇</div>
+                <span className="text-lg font-display text-gray-400 group-hover:text-accent transition-colors">{t("sponsors.placeholder.presenting")}</span>
+                <span className="text-xs text-faint mt-2">{t("sponsors.placeholder.available")}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Gold Sponsors */}
+          <div className="mb-16">
+            <p className="text-xs uppercase tracking-[0.2em] text-faint text-center mb-8">{t("sponsors.tiers.gold")}</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[1, 2, 3, 4].map((i) => (
+                <a
+                  key={i}
+                  href="mailto:sponsors@honlsclassic.com?subject=Gold%20Sponsor%20Inquiry"
+                  className="group border border-dashed border-gray-200 hover:border-accent transition-colors duration-300 p-8 flex flex-col items-center justify-center aspect-square"
+                >
+                  <div className="text-2xl text-gray-300 group-hover:text-accent transition-colors mb-2">◇</div>
+                  <span className="text-xs text-faint group-hover:text-accent transition-colors text-center">{t("sponsors.placeholder.available")}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Community Partners */}
+          <div className="mb-16">
+            <p className="text-xs uppercase tracking-[0.2em] text-faint text-center mb-8">{t("sponsors.tiers.community")}</p>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <a
+                  key={i}
+                  href="mailto:sponsors@honlsclassic.com?subject=Community%20Partner%20Inquiry"
+                  className="group border border-dashed border-gray-200 hover:border-accent transition-colors duration-300 p-4 flex items-center justify-center aspect-square"
+                >
+                  <div className="text-lg text-gray-300 group-hover:text-accent transition-colors">◇</div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Become a Sponsor CTA */}
+          <div className="bg-card p-8 sm:p-12 text-center">
+            <h3 className="font-display text-xl sm:text-2xl mb-4">{t("sponsors.become.title")}</h3>
+            <p className="text-muted text-sm max-w-lg mx-auto mb-8">{t("sponsors.become.description")}</p>
+            <a
+              href="mailto:sponsors@honlsclassic.com?subject=Sponsorship%20Inquiry%20-%20Honl's%20Beach%20Classic"
+              className="btn-primary"
+            >
+              {t("sponsors.become.button")}
+            </a>
+            <p className="text-xs text-faint mt-4">{t("sponsors.become.email")}</p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-32 border-t border-subtle">
         <div className="max-w-2xl mx-auto px-4 text-center">

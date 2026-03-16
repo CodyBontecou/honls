@@ -1,15 +1,19 @@
-name = "honls"
+name = "huilauloa"
+account_id = "e4265f322e6380ee832b83ad45e3e8c0"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
+main = "worker/index.ts"
 
-main = ".open-next/worker.js"
-assets = { directory = ".open-next/assets", binding = "ASSETS" }
+routes = [
+  { pattern = "huilauloa.org", custom_domain = true },
+  { pattern = "www.huilauloa.org", custom_domain = true },
+]
 
 [vars]
-NEXTAUTH_URL = "https://honls.costream.workers.dev"
+NEXTAUTH_URL = "https://huilauloa.org"
 AUTH_TRUST_HOST = "true"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "honls-db"
+database_name = "huilauloa-db"
 database_id = "c4a5de86-cc6b-4ab7-bbc8-f7cc94a7787b"

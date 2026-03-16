@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as schema from "./schema";
 import { eq } from "drizzle-orm";
 
-const sqlite = new Database("honls.db");
+const sqlite = new Database("huilauloa.db");
 const db = drizzle(sqlite, { schema });
 
 // Hawaiian-inspired competitor names
@@ -43,13 +43,13 @@ async function seed() {
   const [testUser] = await db
     .insert(schema.users)
     .values({
-      email: "tournament@honls.test",
+      email: "tournament@huilauloa.test",
       name: "Tournament Admin",
     })
     .onConflictDoNothing()
     .returning();
 
-  const userId = testUser?.id || (await db.query.users.findFirst({ where: eq(schema.users.email, "tournament@honls.test") }))!.id;
+  const userId = testUser?.id || (await db.query.users.findFirst({ where: eq(schema.users.email, "tournament@huilauloa.test") }))!.id;
 
   // Create 8 competitors for U12
   console.log("Creating competitors...");
